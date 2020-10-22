@@ -46,8 +46,11 @@ let addKeyEvent = (key, callback) => {
 }
 
 let dispatchKeyPress = ev => {
-    let callback = [...keyBoardEvents[ev.key.toLowerCase()]].pop();
-    callback(ev);
+    let key = ev.key.toLowerCase();
+    if (keyBoardEvents[key]) {
+        let callback = [...keyBoardEvents[key]].pop();
+        callback(ev);
+    }
 }
 
 let removeKeyEvent = (key, callback) => {
