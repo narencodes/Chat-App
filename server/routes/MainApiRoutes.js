@@ -23,7 +23,7 @@ const initializeRoutes = app => {
 	app.use('/api/chats', authenticateToken, ChatRoutes); //Routes regarding Chats
 
 	// Handle production
-	if (IS_PRODUCTION) {
+	if (true) {
 		// Serve static files from 'public' folder
 		let serverPath = path.resolve("./server")
 		let expressStaticGzip = require("express-static-gzip");

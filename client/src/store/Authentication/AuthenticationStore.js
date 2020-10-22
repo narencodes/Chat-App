@@ -1,10 +1,7 @@
 import Vue from "vue";
-import Vuex from "vuex";
 import axios from "axios";
 import store from "@/mainStore.js";
 import { setTokenToStorage } from '@/configs/token';
-
-Vue.use(Vuex);
 
 let errorHandler = code => {
 	if (code) {
@@ -42,28 +39,13 @@ let actions = {
 					errorHandler(code);
 					return Promise.reject(code);
 				})
-	},
-
-	deleteUser() {
-		return axios.post('/api/user/delete')
-				.catch(({ code }) => {
-					errorHandler(code);
-					return Promise.reject(code);
-				})
 	}
 }
 
-let AuthenticationStore = {
+store.registerModule('authstore', {
+	namespaced : true,
 	state: {},
 	mutations: {},
 	getters: {},
 	actions
-}
-
-
-export default new Vuex.Store({
-	debug: true,
-	modules: {
-		AuthenticationStore
-	}
 })

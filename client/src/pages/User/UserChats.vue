@@ -27,8 +27,7 @@ import { chatIcon } from '@/utility/constants';
 import ButtonComponent from "@/components/Button/ButtonComponent";
 import LoadingComponent from '@/components/Loading/LoadingComponent';
 import Chats from "./Chats";
-
-const NewChat = () => import(/* webpackChunkName: "NewChat" */ "@/components/Chat/NewChat")
+import NewChat from "./components/NewChat";
 
 export default {
 	name : 'UserChats',
@@ -62,7 +61,7 @@ export default {
 	methods : {
 		fetchChats() {
 			if (!this.totalChats) {
-				return NewChat();
+				return;
 			}
 			this.$store.dispatch('chatstore/getChats');
 		},

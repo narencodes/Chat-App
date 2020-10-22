@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: '/',
-		component: () => import( /* webpackChunkName: "Home" */ '@/pages/Home'),
+		component: () => import( /* webpackChunkName: "components" */ '@/pages/Home'),
 		children : [].concat( HomeRoutes, UserRoutes )
 	},
 	{

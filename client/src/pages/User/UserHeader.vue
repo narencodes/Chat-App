@@ -46,7 +46,7 @@
 <script>
 import { mapState } from 'vuex';
 import { removeTokenFromStorage } from "@/configs/token";
-import AuthenticationStore from "@/store/Authentication/AuthenticationStore";
+// import AuthenticationStore from "@/store/Authentication/AuthenticationStore";
 import Avatar from "@/components/Image/Avatar";
 import { closeSocket } from "@/utility/websocket";
 
@@ -77,7 +77,7 @@ export default {
 		deleteUser() {
 			let clickHandler = () => {
 				buttonsList[1].isLoading = true;
-				AuthenticationStore.dispatch('deleteUser')
+				this.$store.dispatch('userstore/deleteUser')
 					.then(() => {
 						this.$closePopup();
 						this.wipeLocalData()

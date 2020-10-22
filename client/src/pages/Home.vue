@@ -17,7 +17,7 @@
 <script>
 import { mapState } from 'vuex';
 import Banner from "@/components/Banner/Banner";
-const Popup = () => import(/* webpackChunkName: "Popup" */ "@/components/Popup/Popup")
+import Popup from "@/components/Popup/Popup";
 
 export default {
 	name : 'Home',

@@ -57,8 +57,8 @@
 
 <script>
 import { chatDetailMixin, transcriptMixin } from "./mixins/chatDetailMixin";
-import LoadingComponent from "../Loading/LoadingComponent"
-import Avatar from "../Image/Avatar";
+import LoadingComponent from "@/components/Loading/LoadingComponent"
+import Avatar from "@/components/Image/Avatar";
 
 export default {
 	name : 'MessageContainer',
@@ -216,7 +216,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common.less";
 
 .mess-cont {
 	.flex;

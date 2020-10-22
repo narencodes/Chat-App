@@ -1,6 +1,11 @@
 import store from '@/mainStore';
 
-let checkIfLoggedIn = (to, from ,next) => {
+
+let loadDep = (to, from, next) => {
+	import( /* webpackChunkName: "Initial" */ "@/store/Authentication/AuthenticationStore")
+		.then(() => checkIfLoggedIn(next))
+}
+let checkIfLoggedIn = next => {
 	let isLoggedIn = store.getters.isLoggedIn;
 	// If the user is logged in already route him to User home page
 	isLoggedIn ? next({ name : 'UserChats' }) : next();
@@ -10,7 +15,7 @@ let checkIfLoggedIn = (to, from ,next) => {
 export default [
 	{
 		path : '/',
-		beforeEnter : checkIfLoggedIn,
+		beforeEnter : loadDep,
 		component: () => import( /* webpackChunkName: "Initial" */ '@/pages/Initial/HomeContainer'),
 		children : [
 			{

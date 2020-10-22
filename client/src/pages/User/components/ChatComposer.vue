@@ -210,7 +210,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common";
 .composer-cont {
 	.posrel;
 	.w100;

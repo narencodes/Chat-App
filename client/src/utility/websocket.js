@@ -1,19 +1,16 @@
-let SocketIO = () => import("socket.io-client");
-import SocketDispatcher from './SocketDispatcher'
+import SocketDispatcher from './SocketDispatcher';
 
 let SocketInstance;
 
-export let initializeSocket = user_id => {
+export let initializeSocket = async (user_id) => {
 	let origin = (process.env.NODE_ENV === 'dev') ? "http://localhost:5000" : "/";
-	SocketIO()
-		.then(socketio => {
-			SocketInstance = socketio.connect(origin, {
-				query: {
-					user_id
-				}
-			});
-			addListeners();
-		});
+	let socketio = await import("socket.io-client");
+	SocketInstance = socketio.connect(origin, {
+		query: {
+			user_id
+		}
+	});
+	addListeners();
 }
 
 let addListeners = () => {
@@ -22,7 +19,7 @@ let addListeners = () => {
 }
 
 export let emitMessage = data => {
-	SocketInstance.emit('outgoing', data)
+	SocketInstance.emit('outgoing', data);
 }
 
 export let closeSocket = () => {

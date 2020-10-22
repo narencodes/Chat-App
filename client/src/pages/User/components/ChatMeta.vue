@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) '../../styles/common.less';
+@import (reference) '../../../styles/common.less';
 
 .chat-meta {
 	.w100;

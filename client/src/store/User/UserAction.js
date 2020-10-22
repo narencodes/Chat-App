@@ -19,6 +19,14 @@ let UserAction = {
 				.then(data => {
 					commit('setFriendsDetails', data);
 				})
+	},
+	
+	deleteUser() {
+		return axios.post('/api/user/delete')
+				.catch(({ code }) => {
+					errorHandler(code);
+					return Promise.reject(code);
+				})
 	}
 }
 

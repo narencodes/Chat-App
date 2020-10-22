@@ -30,6 +30,49 @@ module.exports = {
 					priority: 20,
 					chunks: 'initial'
 				},
+				core : {
+					test: /[\\/]node_modules[\\/](@core.*|core.*|@babel.*)[\\/]/,
+					name: 'transpilers',
+					enforce: true,
+					priority: 30,
+					chunks: 'all'
+				},
+				// all other initial vendors
+				dependencies: {
+					name: 'dependencies',
+					test: /[\\/]node_modules[\\/].*[\\/]/,
+					// maxSize: 50000,
+					// minSize : 10000,
+					priority: 10,
+					enforce: true,
+					reuseExistingChunk: true,
+					chunks: 'all' // doesn't get created without 'all' here
+				},
+				// UI Components
+				components: {
+					test: /src[\\/]components[\\/].*[\\/].*/,
+					name: 'components',
+					enforce: true,
+					priority: 20,
+					reuseExistingChunk : true,
+					chunks: 'all'
+				},
+				// Chat Components
+				chatcomponents: {
+					test: /[\\/]pages[\\/]User[\\/].*/,
+					name: 'Chats',
+					enforce: true,
+					priority: 80,
+					reuseExistingChunk: true,
+					chunks: 'all'
+				},
+				socket : {
+					test: /[\\/]node_modules[\\/](socket|engine).*[\\/]/,
+					name: 'socket-io',
+					enforce: true,
+					priority: 80,
+					chunks: 'all'
+				}
 				// all other vendors
 				// vendors: {
 				// 	name: 'chunk-vendors',

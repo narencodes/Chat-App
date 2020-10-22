@@ -64,7 +64,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Avatar from "../Image/Avatar";
+import Avatar from "@/components/Image/Avatar";
 import { getFormattedTime } from '@/utility/utils';
 import { chatDetailMixin } from "./mixins/chatDetailMixin";
 
@@ -132,7 +132,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common.less";
 	.chat-item {
 		.w100;
 		height: 70px;

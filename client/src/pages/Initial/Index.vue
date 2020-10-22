@@ -30,7 +30,7 @@ export default {
 			},
 			registerButton : {
 				content : 'Register',
-				className : 'wbtn mT20',
+				className : 'wbtn mL20',
 				clickHandler : () => { this.$goTo('Register'); }
 			}
 		}

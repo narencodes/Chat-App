@@ -40,7 +40,6 @@
 <script>
 import InputComponent from "@/components/Input/InputComponent";
 import ButtonComponent from "@/components/Button/ButtonComponent";
-import store from "@/store/Authentication/AuthenticationStore";
 import { isValidEmail } from "@/utility/utils";
 
 const _minPassLength = 8;
@@ -160,7 +159,7 @@ export default {
 		},
 
 		checkIsUser(params, onSuccess) {
-			store.dispatch('checkUserExists', params)
+			this.$store.dispatch('authstore/checkUserExists', params)
 				.then(onSuccess);
 		},
 
@@ -218,7 +217,7 @@ export default {
 				password : this.pass1
 			}
 			registerBtn.isLoading = true;
-			store.dispatch('createUser', userObj)
+			this.$store.dispatch('authstore/createUser', userObj)
 				.then(() => {
 					this.$successBanner('Account created Successfully');
 					this.$goTo('Login');

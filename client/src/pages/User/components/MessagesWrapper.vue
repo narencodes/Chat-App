@@ -29,7 +29,7 @@
 <script>
 import { chatDetailMixin, transcriptMixin } from "./mixins/chatDetailMixin";
 import MessageContainer from "./MessageContainer";
-import LoadingComponent from "../Loading/LoadingComponent";
+import LoadingComponent from "@/components/Loading/LoadingComponent";
 
 export default {
 	name : "MessagesWrapper",
@@ -94,7 +94,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common.less";
 
 .message-body {
 	.posrel;

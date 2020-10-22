@@ -20,7 +20,7 @@
 <script>
 import { mapState } from "vuex";
 import ChatItem from "./ChatItem";
-import LoadingComponent from "../Loading/LoadingComponent";
+import LoadingComponent from "@/components/Loading/LoadingComponent";
 
 export default {
 	name : 'ChatList',
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common";
 .chat-list {
 	width: 30%;
 	.ovrflw-auto;

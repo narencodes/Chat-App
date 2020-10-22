@@ -26,9 +26,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import ButtonComponent from "../Button/ButtonComponent";
-import IconComponent from "../Icon/IconComponent";
-import InputComponent from "../Input/InputComponent";
+import ButtonComponent from "@/components/Button/ButtonComponent";
+import IconComponent from "@/components/Icon/IconComponent";
+import InputComponent from "@/components/Input/InputComponent";
 import { isMobileDevice, checkIfObjectId } from "@/utility/utils";
 import { USER_NOT_FOUND } from '@/configs/errorcode' 
 
@@ -190,7 +190,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common.less";
 
 	/deep/ .input-wrapper {
 		width: 80%;

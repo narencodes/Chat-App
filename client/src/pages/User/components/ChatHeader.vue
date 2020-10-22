@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Avatar from "../Image/Avatar";
+import Avatar from "@/components/Image/Avatar";
 import { chatDetailMixin } from "./mixins/chatDetailMixin"; 
 import { getFormattedLastSeen } from "@/utility/utils";
 
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../styles/common.less";
+@import (reference) "../../../styles/common";
 .chat-body-header {
 	.w100;
 	.flex;

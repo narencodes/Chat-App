@@ -43,7 +43,6 @@
 import { mapState, mapGetters } from 'vuex';
 import InputComponent from "@/components/Input/InputComponent";
 import ButtonComponent from "@/components/Button/ButtonComponent";
-import store from "@/store/Authentication/AuthenticationStore";
 import { isValidEmail } from "@/utility/utils";
 import { INCORRECT_PASSWORD } from "@/configs/errorcode";
 import LoadingComponent from '@/components/Loading/LoadingComponent'
@@ -114,7 +113,7 @@ export default {
 		},
 
 		checkIsUser(params) {
-			store.dispatch('checkUserExists', params)
+			this.$store.dispatch('authstore/checkUserExists', params)
 				.then(isFound => {
 					this.showNameError = !isFound; // Show error if the username is not found
 				})
@@ -151,7 +150,7 @@ export default {
 		},
 
 		loginUser(params, btn = {}) {
-			store.dispatch('loginUser', params)
+			this.$store.dispatch('authstore/loginUser', params)
 				.then(() => {
 					this.destination ? this.$router.push(this.destination) : this.$goTo('UserChats');
 				})
