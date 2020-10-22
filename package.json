@@ -4,7 +4,7 @@
   "description": "Chat application for learning( Vue and Node js )",
   "main": "index.js",
   "scripts": {
-    "postinstall": "set NODE_ENV=development && npm run client-install && set NODE_ENV=production && npm run client-build",
+    "postinstall": "NODE_ENV=development && npm run client-install && NODE_ENV=production && npm run client-build",
     "dev": "nodemon server/index.js",
     "client": "npm run dev --prefix client",
     "client-install": "npm install --prefix client",
