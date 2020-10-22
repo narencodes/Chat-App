@@ -1,0 +1,544 @@
+@import (reference) "./variables.less";
+
+//Global
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+}
+
+em {
+	font: inherit;
+	resize: none;
+	color: inherit;
+}
+
+a {
+	text-decoration: none;
+	color : @link;
+	.curP;
+}
+
+.fa {
+	color: @grey;
+}
+
+body {
+	height: 100vh;
+}
+
+.w80 {
+	width: 80%;
+}
+
+.w100 {
+	width: 100%;
+}
+
+.maW100 {
+	max-width: 100%;
+}
+
+.maH100 {
+	max-height: 100%;
+}
+
+.maW400 {
+	max-width: 400px;
+}
+
+.h100 {
+	height: 100%;
+}
+
+.w-200 {
+	width: 200px;
+}
+
+.disable {
+	opacity: 0.5;
+	cursor : not-allowed !important;
+}
+
+// Margins
+
+.mgA {
+	margin: auto;
+}
+
+.mT5 {
+	margin-top: 5px;
+}
+
+.mT10 {
+	margin-top: 10px;
+}
+
+.mT15 {
+	margin-top: 15px;
+}
+
+.mT20 {
+	margin-top: 20px;
+}
+
+.mT25 {
+	margin-top: 25px;
+}
+
+.mT30 {
+	margin-top: 30px;
+}
+
+.mT40 {
+	margin-top: 40px;
+}
+
+.mT50 {
+	margin-top : 50px;
+}
+
+.mT60 {
+	margin-top: 60px;
+}
+
+.mL5 {
+	margin-left: 5px;
+}
+
+.mL10 {
+	margin-left: 10px;
+}
+
+.mL15 {
+	margin-left: 15px;
+}
+
+.mL20 {
+	margin-left: 20px;
+}
+
+.mB5 {
+	margin-bottom: 5px;
+}
+
+.mB10 {
+	margin-bottom: 10px;
+}
+
+.mB15 {
+	margin-bottom: 15px;
+}
+
+.mB20 {
+	margin-bottom: 20px;
+}
+
+.mB25 {
+	margin-bottom: 25px;
+}
+
+.mB30 {
+	margin-bottom: 30px;
+}
+
+.mB50 {
+	margin-bottom: 50px;
+}
+
+.mR5 {
+	margin-right: 5px;
+}
+
+.mR10 {
+	margin-right: 10px;
+}
+
+.mR15 {
+	margin-right: 15px;
+}
+
+.mR20 {
+	margin-right: 20px;
+}
+
+.mR25 {
+	margin-right: 25px;
+}
+
+.mR30 {
+	margin-right: 30px;
+}
+
+// Positions
+
+.posrel {
+	position: relative;
+}
+
+.posabs {
+	position: absolute;
+}
+
+.posfix {
+	position: fixed;
+}
+
+//Alignment 
+
+.taC {
+	text-align: center;
+}
+
+.taL {
+	text-align: left;
+}
+
+.vaM {
+	vertical-align: middle;
+}
+
+.aiC {
+	align-items: center;
+}
+
+.wordB {
+	word-break: break-word;
+}
+
+.justifySB {
+	justify-content: space-between;
+}
+
+.justifyC {
+	justify-content: center;
+}
+
+.floatL {
+	float: left;
+}
+
+.floatR {
+	float: right;
+}
+
+// Cursor
+
+.curP {
+	cursor: pointer;
+}
+
+.curNon {
+	pointer-events: none;
+}
+
+.curWait {
+	cursor: wait;
+}
+
+//Colors
+
+.clrR {
+	color: #e34d4d !important;
+}
+
+.clrW {
+	color: @white;
+}
+
+.clrGray {
+	color: #303538bd;
+}
+
+.clrB {
+	color : #48ace8;
+}
+
+.clrG {
+	color : @green;
+}
+
+.bgW {
+	background-color: #fff;
+}
+
+.bg3 {
+	background-color: #333;
+}
+
+.clr3 {
+	color : #333;
+}
+
+// Flex
+
+.flex {
+	display: flex;
+}
+
+.flexC {
+	flex-direction: column;
+}
+
+.flexG {
+	flex-grow: 1;
+}
+
+.flexE {
+	align-items: flex-end;
+}
+
+//Display 
+
+.diB {
+	display: inline-block;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+/** Font CSS **/
+
+.font14 {
+	font-size: 14px;
+}
+
+.font15 {
+	font-size: 15px;
+}
+
+.font16 {
+	font-size: 16px;
+}
+
+.font18 {
+	font-size: 18px;
+}
+
+.font20 {
+	font-size: 20px;
+}
+
+.font25 {
+	font-size: 25px;
+}
+
+.font30 {
+	font-size: 30px;
+}
+
+.font40 {
+	font-size: 40px;
+}
+
+// Tag formatting
+
+.oNone {
+	outline: none;
+}
+
+.bNone {
+	border: none;
+}
+
+// Text Formatting
+
+.elips {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.textC {
+	text-transform: capitalize;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.fW600 {
+	font-weight: 600;
+}
+
+// Overflow
+
+.ovrflw-hid {
+	overflow: hidden;
+}
+
+.ovrflw-auto {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+//Padding
+
+.p20 {
+	padding: 20px ;
+}
+
+.p30 {
+	padding: 30px;
+}
+
+.p50 {
+	padding : 50px;
+}
+
+.pL15 {
+	padding-left: 15px;
+}
+
+.pL25 {
+	padding-left: 25px;
+}
+
+.pL30 {
+	padding-left: 30px;
+}
+
+.pL50 {
+	padding-left: 50px;
+}
+
+.pT20 {
+	padding-top: 20px;
+}
+
+.pT40 {
+	padding-top: 40px;
+}
+
+.pT60{
+	padding-top: 60px;
+}
+
+.pT70 {
+	padding-top: 70px;
+}
+
+.pR15 {
+	padding-right: 15px;
+}
+
+.pR25 {
+	padding-right: 25px;
+}
+
+.pR30 {
+	padding-right: 30px;
+}
+
+.pR40 {
+	padding-right: 40px;
+}
+
+.pR50 {
+	padding-right: 50px;
+}
+
+.pB20 {
+	padding-bottom: 20px;
+}
+
+.pTB10 {
+	padding : 10px 0;
+}
+
+.pLR10 {
+	padding : 0 10px;
+}
+
+.pLR15 {
+	padding: 0 15px;
+}
+
+.pLR20 {
+	padding: 0 20px;
+}
+
+.pLR30 {
+	padding: 0 30px;
+}
+
+
+// Borders
+
+.bR5 {
+	border-radius: 5px;
+}
+
+.bR50 {
+	border-radius: 50%;
+}
+
+//Transitions 
+
+.trans {
+	transition: all 0.3s ease;
+}
+
+// Line Heights
+
+.lh40 {
+	line-height: 40px;
+}
+
+// Transform
+
+.tX-50 {
+	transform: translateX(-50%);
+}
+
+.tX50 {
+	transform: translateX(50%);
+}
+
+.tY50 {
+	transform: translateY(50%);
+}
+
+.tY-50 {
+	transform: translateY(-50%);
+}
+
+.tXY-50 {
+	transform: translate(-50%, -50%);
+}
+
+// Flex CSS
+
+.fshrink {
+	flex-shrink: 0;
+}
+
+.fgrow {
+	flex-grow: 1;
+}
+
+.center {
+	.posabs;
+	top: 50%;
+	left: 50%;
+	.mgA;
+	.tXY-50;
+}
+
+.iCenter {
+	.flex;
+	.aiC;
+	.justifyC;
+}
+
+
+
+

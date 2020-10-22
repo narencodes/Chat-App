@@ -1,0 +1,67 @@
+// Container all animation keyframes
+
+@keyframes spinner {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateX(-200%);
+	}
+
+	20% {
+		transform: translateX(-80%);
+	}
+
+	40% {
+		transform: translateX(-60%);
+	}
+
+	60% {
+		transform: translateX(-40%);
+	}
+
+	80% {
+		transform: translateX(-20%);
+	}
+
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+@keyframes slide-up {
+	0% {
+		transform: translateY(90%);
+	}
+
+	25% {
+		transform: translateY(60%);
+	}
+
+	50% {
+		transform: translateY(40%);
+	}
+
+	75% {
+		transform: translateY(20%);
+	}
+
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+@keyframes flow {
+	from {
+		opacity: 1;
+		transform: scale(1.1);
+	}
+
+	to {
+		opacity: 0.5;
+		transform: scale(0.8);
+	}
+}

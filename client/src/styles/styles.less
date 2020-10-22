@@ -1,0 +1,314 @@
+// Common styles goes here
+
+@import (reference) "./common.less";
+
+// Button Styles goes here
+.btn,
+.wbtn,
+.rbtn {
+	.vaM;
+	.taC;
+	.flex;
+	.aiC;
+	.justifyC;
+	padding: 0px 15px;
+	min-width: 100px;
+	height: 40px;
+	.font18;
+	.curP;
+	.elips;
+	.ovrflw-hid;
+	border: 1px solid transparent;
+	.posrel;
+	.textC;
+	font-weight: 500;
+	border-radius: 4px;
+}
+
+.btn {
+	.clrW;
+	background-color: @btnBG;
+	&:hover:not(.disable) {
+		background-color: @btnHover;
+	}
+}
+
+.rbtn {
+	.clrW;
+	background-color: #ff6161;
+	&:hover {
+		background-color: #de5454;
+	}
+}
+
+.wbtn {
+	border: 0.5px solid #838587;
+	&:hover {
+		background-color: #ededed;
+	}
+}
+
+// Close icon css goes here
+
+.close {
+	color: #787878;
+	.font20;
+	.curP;
+	.iCenter;
+	width: 30px;
+	height: 30px;
+	.bR50;
+	&:hover {
+		.clrW;
+		background-color: #707070;
+		transition: .3s ease-in-out;
+	}
+	@media (max-width:400px) {
+		.font15;
+	}
+}
+
+// Input Styles goes here
+
+.input-wrapper {
+	.mB25;
+	.diB;
+	width: 200px;
+}
+
+.input-container {
+	.posrel;
+	height: 50px;
+	.ovrflw-hid;
+	& input {
+		.w100;
+		.h100;
+		.oNone;
+		.bNone;
+		.pT20;
+		.font16;
+		background-color: transparent;
+		letter-spacing: .5px;
+
+		&:focus,
+		&:valid {
+			&+.input-label .input-placeholder {
+				.font14;
+				transform: translateY(-150%);
+			}
+		}
+
+		&:focus {
+			&+.input-label::after {
+				transform: translate(0);
+			}
+		}
+	}
+
+	& .input-label {
+		.posabs;
+		bottom: 0;
+		left: 0;
+		.w100;
+		.h100;
+		.curNon;
+		border-bottom: 1px solid #898e91;
+
+		&::after {
+			content: '';
+			.w100;
+			.h100;
+			.posabs;
+			left: 0;
+			bottom: -1px;
+			transform: translateX(-100%);
+			border-bottom: 1.5px solid #48ace8;
+			.trans;
+		}
+
+		&.error {
+			&, &::after {
+				border-bottom: 1.5px solid #eb7373;
+			}
+
+			&::after {
+				bottom : -2px;
+			}
+		}
+
+		&.info {
+			&, &::after {
+				border-bottom: 1.5px solid @green;
+			}
+
+			&::after {
+				bottom: -2px;
+			}
+		}
+	}
+
+	& .input-placeholder {
+		.posabs;
+		bottom: 5px;
+		left: 0px;
+		.clrGray;
+		.trans;
+	}
+	& .icon {
+		.posabs;
+		bottom: 10px;
+		transform: translate(0%, 25%);
+		.mgA;
+		.font16;
+		.curNon;
+
+		&.view {
+			pointer-events: all;
+			.curP;
+			right: 5px;
+		}
+	}
+}
+
+.input-wrapper .input-info {
+	.posabs;
+	width: 200px;
+	.mT5;
+}
+
+// Loading 
+
+.loader::before{
+	content : '';
+	.posabs;
+	.mgA;
+	.diB;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 1em;
+	height: 1em;
+	background-color: inherit;
+	border-radius: 50%;
+	border : 2px solid #aba9a9;
+	border-top-color: @white;
+	animation: spinner 0.7s linear infinite;
+}
+
+// Banner CSS goes here
+.banner {
+	.flex;
+	.posfix;
+	.taC;
+	.vaM;
+	.aiC;
+	.ovrflw-hid;
+	.maW100;
+	.bR5;
+	.tX-50;
+	.bgW;
+	top: 50px;
+	left: 50%;	
+	min-width: 250px;
+	z-index: 999;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.24);
+}
+
+.banner > em {
+	.h100;
+	.lh40;
+	.taC;
+	.font16;
+	.clrW;
+	.fshrink;
+	width: 38px;
+	background-color: #2c9e32;
+}
+
+.banner > em.error {
+	background-color: #ff4242;
+}
+
+.banner span {
+	.fgrow;
+	.font20;
+	.h100;
+	.pLR15;
+	.taC;
+	letter-spacing: .2px;
+	line-height: 38px;
+	white-space: nowrap;
+}
+
+// Popup CSS goes here
+
+.overlay::before {
+	content: "";
+	.posfix;
+	top: 0;
+	left: 0;
+	.w100;
+	.h100;
+	background-color: #000;
+	opacity: 0.3;
+	z-index: 1;
+}
+
+.dialog-popup {
+	.posfix;
+	.tXY-50;
+	.aiC;
+	.taC;
+	.bgW;
+	.ovrflw-hid;
+	.bR5;
+	width: 400px;
+	min-height: 300px;
+	top: 50%;
+	left: 50%;
+	padding: 40px;
+	box-shadow: 0px 0px 2px 0.6px rgba(0, 0, 0, 0.2);
+	z-index: 2;
+}
+
+.dialog-popup .icon {
+	.mT20;
+	font-size: 40px;
+	color: #707070;
+}
+
+.dialog-popup .title {
+	.mT20;
+	.font25;
+	font-weight: 600;
+	letter-spacing: .3px;
+}
+
+.dialog-popup .content {
+	.mT20;
+	.wordB;
+	.taC;
+	.font20;
+}
+
+.dialog-popup .close {
+	.posabs;
+	top: 15px;
+	right: 15px;
+}
+
+.dialog-popup .bg-icon {
+	.posabs;
+	right: -30px;
+	bottom: 0;
+	font-size: 150px;
+	color: #0000000a;
+	z-index: -1;
+}
+
+@media (max-width:500px) {
+	.dialog-popup {
+		width : auto;
+	}
+}

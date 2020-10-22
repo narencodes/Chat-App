@@ -1,0 +1,73 @@
+@import (reference) "./common.less";
+
+.header {
+	.w100;
+	.flex;
+	height: 65px;
+	.bg3;
+	padding: 10px 20px;
+	.clrW;
+	letter-spacing: .6px;
+	.justifySB;
+	.posfix;
+	z-index: 1;
+}
+
+.header-title {
+	.h100;
+	.lh40;
+	.font25;
+}
+
+.header-profile {
+	.curP;	
+	.flex;
+	.justifyC;
+	.aiC;
+	& .user-name {
+		.mL10;
+		.font25;
+		.textC;
+		.posrel;
+		.elips;
+		max-width: 200px;
+	}
+	& em {
+		line-height: 44px;
+	}
+	& .drp-dwn {
+		max-height: 400px;
+		max-width: 250px;
+		.posabs;
+		right: 1%;
+		bottom: -80px;
+		box-shadow: 0px 3px 5px .1px #e8e8e8;
+		& .list {
+			.bgW;
+			.clr3;
+			min-width: 130px;
+			padding: 0 10px;
+			.ovrflw-auto;
+			.h100;
+			.w100;
+			border-bottom: #333;
+			&:hover {
+				background-color: #e8e8e8;
+			}
+		}
+	}
+}
+
+.user-section {
+	.h100;
+	.pT40;
+	.ovrflw-hid;
+}
+
+@media (max-width: 450px) {
+	.header-profile {
+		.user-name {
+			.hide;
+		}
+	}
+}
