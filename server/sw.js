@@ -36,7 +36,7 @@ self.addEventListener('activate', handleActivate);
 
 let handleFetch = e => {
 	let { request } = e;
-	if (!request.url.includes('http')) {
+	if (!request.url.includes('http') || request.method !== 'GET' ) { // Ignore requests other than GET
 		return;
 	}
 	e.respondWith(
