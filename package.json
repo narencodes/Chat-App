@@ -9,7 +9,7 @@
     "client": "npm run dev --prefix client",
     "client-install": "npm install --prefix client",
     "client-build": "npm run build --prefix client",
-    "start": "node server/app.js"
+    "start": "node server/index.js"
   },
   "author": "Narenderen",
   "license": "MIT",
