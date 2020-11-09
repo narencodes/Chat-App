@@ -1,5 +1,5 @@
 // File for service worker
-let cacheName = 'v1';
+let cacheName = 'v2';
 
 let dependencyURLs = [
 	"https://kit.fontawesome.com/10806da71c.js",
@@ -7,6 +7,7 @@ let dependencyURLs = [
 ]
 
 let handleInstall = e => {
+	self.skipWaiting();
 	e.waitUntil(
 		caches
 			.open(cacheName)
@@ -37,13 +38,14 @@ self.addEventListener('activate', handleActivate);
 let handleFetch = e => {
 	let { request } = e;
 	if (!request.url.includes('http') || request.method !== 'GET' ) { // Ignore requests other than GET
-		return;
+		return request;
 	}
 	e.respondWith(
 		fetch(request)
 			.then(res => {
 				let clone = res.clone();
-				caches.open(cacheName)
+				caches
+					.open(cacheName)
 					.then(cache => {
 						cache.put(request.url, clone);
 					})

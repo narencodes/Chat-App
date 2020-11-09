@@ -213,6 +213,7 @@ export default {
 					}
 					this.$emit('signingIn');
 					let profile = googleUser.getBasicProfile();
+					let token = googleUser.getAuthResponse().id_token;
 					let email_id = profile.getEmail();
 					let user_name = profile.getName();
 					let img_url = profile.getImageUrl();
@@ -220,7 +221,8 @@ export default {
 						user_name,
 						email_id,
 						img_url,
-						account_type : 'google'
+						account_type : 'google',
+						token
 					}
 					this.onSignIn(userObj);
 				}

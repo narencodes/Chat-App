@@ -24,7 +24,6 @@ let handleNewSocketConnection = socket => {
 
 /**
  * 
- * @param { String } name - name of the emit event
  * @param { String, Array } rooms - rooms to which the data is to be emitted
  * @param { Object } data - data to be emitted
  */

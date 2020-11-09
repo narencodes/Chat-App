@@ -1,9 +1,41 @@
 const { comparePasswordHash } = require("../Dependencies/Encrypt");
 const { getUser, saveUser } = require('./UserInterActors');
 const { genAuthToken } = require("../Dependencies/AuthToken");
+const {OAuth2Client} = require('google-auth-library');
+const { GAPI_CLIENT_ID } = require('../utils/keys');
 
-const loginUser = async ({ user_name, pass : password, is_email, email_id,  account_type = 'email', img_url }) => {
+const client = new OAuth2Client(GAPI_CLIENT_ID);
+
+const verifyGoogleUser = token => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			await client.verifyIdToken({
+				idToken: token,
+				audience: GAPI_CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+				// Or, if multiple clients access the backend:
+				//[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+			});
+			resolve();
+		}
+		catch(e) {
+			reject();
+		}
+	});
+}
+
+const loginUser = async ({ user_name, pass : password, is_email, email_id,  account_type = 'email', img_url, token }) => {
 	let isGoogle = account_type === 'google';
+	if (isGoogle) {
+		try {
+			await verifyGoogleUser(token);
+		}
+		catch(e) {
+			return Promise.reject({
+				code: "g404",
+				message: 'Invalid google oAuth token'
+			});
+		}
+	}
 	let query_key = (isGoogle || is_email ) ? 'email_id' : 'user_name';
 	let query = [{
 		[query_key]: isGoogle ? email_id : user_name,
@@ -61,9 +93,7 @@ let handleNewGoogleUser = ({ user_name, img_url, account_type, email_id }) => {
 		});
 }
 
-let login = userData => {
-	return getToken(userData);
-}
+let login = userData => getToken(userData);
 
 let getToken = ({ _id, user_name, email_id }) => {
 	let payload = {

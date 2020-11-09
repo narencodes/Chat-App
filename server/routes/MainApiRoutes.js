@@ -4,7 +4,6 @@ const RegistrationRoutes = require('./RegistrationRoutes');
 const LoginRoutes = require('./LoginRoutes');
 const ChatRoutes = require('./ChatRoutes');
 const { authenticateToken } = require('../utils/Authentication');
-const { IS_PRODUCTION } = require('../utils/keys');
 const path = require('path');
 const compression = require('compression');
 
@@ -23,22 +22,20 @@ const initializeRoutes = app => {
 	app.use('/api/chats', authenticateToken, ChatRoutes); //Routes regarding Chats
 
 	// Handle production
-	if (true) {
-		// Serve static files from 'public' folder
-		let serverPath = path.resolve("./server")
-		let expressStaticGzip = require("express-static-gzip");
-		app.use("/", expressStaticGzip(serverPath + "/public"));
+	// Serve static files from 'public' folder
+	let serverPath = path.resolve("./server")
+	let expressStaticGzip = require("express-static-gzip");
+	app.use("/", expressStaticGzip(serverPath + "/public"));
 
-		// To serve service worker file
-		app.get("/sw.js", (req, res) => {
-			res.sendFile(`${serverPath}/sw.js`);
-		});
+	// To serve service worker file
+	app.get("/sw.js", (req, res) => {
+		res.sendFile(`${serverPath}/sw.js`);
+	});
 
-		// Load index.html for all routes except '/api' routes
-		app.get(/.*/, (req, res) => {
-			res.sendFile(serverPath + '/public/index.html');
-		});
-	}
+	// Load index.html for all routes except '/api' routes
+	app.get(/.*/, (req, res) => {
+		res.sendFile(serverPath + '/public/index.html');
+	});
 }
 
 module.exports = function(app) {
