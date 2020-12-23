@@ -40,7 +40,7 @@ class Notify{
 	}
 
 	request() {
-		!isDenied && requestPermission();
+		!isDenied() && requestPermission();
 	}
 }
 

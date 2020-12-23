@@ -3,7 +3,7 @@ import axios from 'axios';
 // To modify success response and error response
 axios.interceptors.response.use(
 	response => {
-		if (response.data.data) {
+		if (response.data && response.data.data) {
 			return response.data.data
 		}
 		return response.data || response;

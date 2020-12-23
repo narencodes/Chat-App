@@ -266,7 +266,7 @@ let handleMessageMeta = async (data) => {
 }
 
 let markChatAsRead = req => {
-	let { chatId, userId, chatDetail } = req;
+	let { chatId, userId } = req;
 	notifyMeta(req, { read : true });
 	return changeChatMeta({ chatId, userId, is_read : true })
 			.then(() => {

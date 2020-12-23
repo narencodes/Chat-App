@@ -61,7 +61,7 @@ const loginUser = async ({ user_name, pass : password, is_email, email_id,  acco
 				return Promise.reject({
 					message: 'User not found'
 				})		
-		case user && user.account_type === 'google' : 
+		case user.account_type === 'google' : 
 			return login(user);
 		default : 
 			let isCorrectPassword = await comparePasswordHash(password, user.password);
