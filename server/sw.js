@@ -49,7 +49,12 @@ let handleFetch = async(e) => {
 	if (request.url.includes('upload')) {
 		return e.respondWith(
 				getValueFromCache(request.url)
-					.then(data => data)
+					.then(data => {
+						if (data) {
+							return data;
+						}
+						return fetchFromServer(request);
+					})
 					.catch(() => fetchFromServer(request))
 		)
 	}
