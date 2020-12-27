@@ -20,7 +20,7 @@
 					:key="message._id"
 					class="flex"
 					:class="{ 
-						'flexE flexC' : transcript.isSender, 
+						'flexE flexV' : transcript.isSender, 
 						'last-mess-cont' : !transcript.isSender && message.isLast && !(transcript.isLast && chatDetail.isTyping)
 					}"
 				>
@@ -219,8 +219,7 @@ export default {
 @import (reference) "../../../styles/common.less";
 
 .mess-cont {
-	.flex;
-	.flexC;
+	.flexV;
 	.posabs;
 	.w100;
 	.maH100;
@@ -230,14 +229,12 @@ export default {
 }
 
 .rec-cont {
-	.flex;
-	.flexC;
+	.flexV;
 	.flexG;
 }
 
 .sender-cont {
-	.flex;
-	.flexC;
+	.flexV;
 	.mB10;
 	.mR30;
 }

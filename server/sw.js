@@ -34,14 +34,30 @@ let handleActivate = e => {
 
 self.addEventListener('activate', handleActivate);
 
+let getValueFromCache = url => {
+	return caches
+			.match(url, { ignoreVary : true })
+			.then(res => res);
+}
 
-let handleFetch = e => {
+
+let handleFetch = async(e) => {
 	let { request } = e;
 	if (!request.url.includes('http') || request.method !== 'GET' ) { // Ignore requests other than GET
 		return request;
 	}
-	e.respondWith(
-		fetch(request)
+	if (request.url.includes('upload')) {
+		return e.respondWith(
+				getValueFromCache(request.url)
+					.then(data => data)
+					.catch(() => fetchFromServer(request))
+		)
+	}
+	e.respondWith(fetchFromServer(request));
+}
+
+let fetchFromServer = request => {
+	return fetch(request)
 			.then(res => {
 				let clone = res.clone();
 				caches
@@ -52,11 +68,8 @@ let handleFetch = e => {
 				return res;
 			})
 			.catch(err => {
-				caches
-					.match(request.url, { ignoreVary : true })
-					.then(res => res);
+				return Promise.reject(err)
 			})
-	)
 }
 
 self.addEventListener('fetch', handleFetch);

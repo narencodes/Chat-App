@@ -1,5 +1,5 @@
 <template>
-	<div class="home h100">
+	<div class="home flexV h100">
 		<div class="img-container">
 			<img :src='imgSrc | imgURL'>
 		</div>
@@ -44,11 +44,6 @@ export default {
 
 <style lang="less" scoped>
 @import (reference) "../../styles/common.less";
-.home {
-	.flex;
-	.flexC;
-}
-
 .home .img-container {
 	.flex;
 	.w100;

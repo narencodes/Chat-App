@@ -89,7 +89,7 @@ let pushNewMessage = (chatId, participants, message, temp_id) => {
 					};
 					notifyNewMessage(participants, messageObj);
 					return {
-						status: 200
+						status: 204
 					}
 				})
 				.catch(err => {

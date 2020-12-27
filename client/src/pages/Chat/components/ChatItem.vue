@@ -153,9 +153,8 @@ export default {
 	}
 	.chat-detail-wrapper {
 		.mL15;
-		.flex;
 		.taL;
-		.flexC;
+		.flexV;
 		.flexG;
 		.ovrflw-hid;
 		.justifyC;

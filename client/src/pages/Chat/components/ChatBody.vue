@@ -43,7 +43,7 @@ export default {
 		ViewChat : {
 			name : 'ViewChat',
 			template : `<div class="iCenter w100 h100">
-							<div class="flex flexC">
+							<div class="flexV">
 								<span class="font20">Select a chat to view the messages here</span>
 							</div>
 						</div>`

@@ -91,8 +91,7 @@ export default {
 	.h100;
 	.posrel;
 	.p30;
-	.flex;
-	.flexC;
+	.flexV;
 	.ovrflw-hid;
 	box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.2);
 	@media(max-width: 1000px){

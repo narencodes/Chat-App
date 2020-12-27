@@ -57,7 +57,7 @@ router.post('/typing', handleTyping);
 let handleFileUpload = (req, res) => {
 	uploadFile(req)
 		.then(() => {
-			res.end();
+			res.status(204).end();
 		})
 		.catch(() => {
 			res.status(400).send({

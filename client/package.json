@@ -28,7 +28,8 @@
     "less-loader": "^5.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-template-compiler": "^2.6.12",
-    "webpack-bundle-analyzer": "^3.6.1"
+    "webpack-bundle-analyzer": "^3.6.1",
+    "webpack-remove-debug": "^0.1.0"
   },
   "eslintConfig": {
     "root": true,

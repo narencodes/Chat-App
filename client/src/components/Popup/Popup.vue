@@ -1,11 +1,10 @@
 <template>
 	<div 
 		class="overlay"
-		v-escape="closePopup"
 	>
 		<div 
 			class="dialog-popup"
-			v-click-out="closePopup"
+			v-exit="closePopup"
 		>
 			<em 
 				v-if="hasClose"

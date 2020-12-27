@@ -18,7 +18,7 @@ import "./styles/user.less";
 import './Filters/filters.js'
 
 // custom directives should be listed here
-import './Directives/directives.js';
+import './Directives/index';
 
 //custom prototypes goes here
 import './Prototype/prototype.js'

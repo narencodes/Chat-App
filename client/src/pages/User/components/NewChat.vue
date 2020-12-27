@@ -2,8 +2,7 @@
 	<div class="overlay">
 		<div 
 			class="new-chat"
-			v-click-out="handleClose"
-			v-escape="handleClose"
+			v-exit="handleClose"
 		>
 			<IconComponent 
 				type="close"
@@ -117,7 +116,7 @@ export default {
 			name : "JoinChat",
 			template : `<div class="mT20 mB20">
 							<p class="mB20 font18">To connect with other users enter their User Id </p>
-							<div class="flex flexC aiC">
+							<div class="flexC flexV">
 								<input-component
 									v-bind="inputProps"
 									:showError="showIdError"

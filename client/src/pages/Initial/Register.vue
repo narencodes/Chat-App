@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flexC aiC">
+	<div class="flexC flexV">
 		<div class="taC mB20 font30 bold">
 			Register
 		</div>

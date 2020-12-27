@@ -2,10 +2,23 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 
 let isdev = process.env.NODE_ENV !== 'production';
+
+let rules = [{
+	test: /\.less$/,
+	use: [
+		'less-loader'
+	]
+}];
+
 let plugins = [];
 if (!isdev) {
 	plugins.push(new CompressionPlugin());
+	rules.push({
+		test: /\.js$/,
+		loader: 'webpack-remove-debug'
+	});
 }
+
 module.exports = {
     outputDir : '../server/public',
 	lintOnSave : false,
@@ -131,12 +144,7 @@ module.exports = {
 		},
 		plugins,
 		module: {
-			rules: [{
-				test: /\.less$/,
-				use: [
-					'less-loader'
-				]
-			}]
+			rules
 		}
 	}
 }

@@ -16,6 +16,8 @@ export let initializeSocket = async (user_id) => {
 let addListeners = () => {
 	// will send all the message through 'incoming' event
 	SocketInstance.on('incoming', SocketDispatcher.handleMessage);
+	SocketInstance.on('disconnect', () => console.log('disconnected from server'));
+	SocketInstance.on('connect', () => console.log('connected to server'))
 }
 
 export let emitMessage = data => {

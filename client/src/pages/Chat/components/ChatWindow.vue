@@ -43,9 +43,8 @@ export default {
 @import (reference) "../../../styles/common.less";
 
 .message-container {
-	.flex;
+	.flexV;
 	.flexG;
-	.flexC;
 	.posrel;
 	.ovrflw-hid;
 }

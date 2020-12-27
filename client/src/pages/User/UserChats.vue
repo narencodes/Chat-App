@@ -26,7 +26,7 @@ import { mapState } from "vuex";
 import { chatIcon } from '@/utility/constants';
 import ButtonComponent from "@/components/Button/ButtonComponent";
 import LoadingComponent from '@/components/Loading/LoadingComponent';
-import Chats from "./Chats";
+import Chats from '@/pages/Chat/Chats';
 import NewChat from "./components/NewChat";
 
 export default {
@@ -116,30 +116,28 @@ export default {
 @import (reference) "../../styles/common.less";
 
 /deep/ .no-chat {
-		.flex;
-		.flexC;
-		.aiC;
-		.justifyC;
-		.p50;
-		.taC;
-		.w100;
-		.h100;
-		& img {
-			width: 200px;
-			height: 200px;
-			@media (max-width:400px) {
-				width: 100px;
-				height: 100px;
-			}
+	.flexV;
+	.iCenter;
+	.p50;
+	.taC;
+	.w100;
+	.h100;
+	& img {
+		width: 200px;
+		height: 200px;
+		@media (max-width:400px) {
+			width: 100px;
+			height: 100px;
 		}
-		& .text {
-			.mT30;
-			.mB30;
-			.font30;
-			@media (max-width:400px) {
-				.mT15;
-				.font20;
-			}
+	}
+	& .text {
+		.mT30;
+		.mB30;
+		.font30;
+		@media (max-width:400px) {
+			.mT15;
+			.font20;
 		}
+	}
 	}
 </style>

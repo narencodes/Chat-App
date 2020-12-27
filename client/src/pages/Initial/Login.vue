@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flexC aiC">
+	<div class="flexC flexV">
 		<div class="h100 w100" v-if="signingIn">
 			<LoadingComponent />
 			<div class="mT25">

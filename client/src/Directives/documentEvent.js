@@ -41,7 +41,7 @@ let addKeyEvent = (key, callback) => {
     if (keyBoardEvents[key]) {
         return keyBoardEvents[key].push(callback);
     }
-    addEvent('keydown', dispatchKeyPress);
+    !documentEvents.keydown && addEvent('keydown', dispatchKeyPress);
     keyBoardEvents[key] = [callback];
 }
 
