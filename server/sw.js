@@ -44,7 +44,7 @@ let getValueFromCache = url => {
 let handleFetch = async(e) => {
 	let { request } = e;
 	if (!request.url.includes('http') || request.method !== 'GET' ) { // Ignore requests other than GET
-		return request;
+		return;
 	}
 	if (request.url.includes('upload')) {
 		return e.respondWith(

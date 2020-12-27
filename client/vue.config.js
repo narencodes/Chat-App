@@ -71,7 +71,7 @@ module.exports = {
 				},
 				// Chat Components
 				chatcomponents: {
-					test: /[\\/]pages[\\/]User[\\/].*/,
+					test: /[\\/]pages[\\/](User|Chats)[\\/].*/,
 					name: 'Chats',
 					enforce: true,
 					priority: 80,

@@ -8,13 +8,13 @@ import { showNotification } from "@/service/notification";
 
 let notifyUser = (msg, id) => {
 	// Dont show the notication if the sender is current user
-	let { sender_id, text } = msg;
+	let { sender_id, text, file } = msg;
 	if (sender_id === getCurrentUser()._id) {
 		return;
 	}
 	let params = {
 		title : getFriendDetail(sender_id).user_name,
-		body : text,
+		body : file ? 'Sent you an attachment' : text,
 		onClick : () => Vue.prototype.$goTo('Chat', { id })
 	}
 	showNotification(params);

@@ -166,6 +166,7 @@ export default {
 			if (!file) {
 				return;
 			}
+			e.target.value = ''; // Empty the input value to upload the same file again
 			let fileReader = new FileReader();
 			fileReader.onload = () => {
 				let { name, size, type } = file;

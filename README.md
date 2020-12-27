@@ -1,4 +1,4 @@
-# gamerbros
+# Chat App
 Contains the master code to deploy in production
 
 ## Project setup
