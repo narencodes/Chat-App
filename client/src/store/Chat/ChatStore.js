@@ -128,8 +128,9 @@ let mutations = {
 			return;
 		}
 		let transcriptOrder = messages[chatId].transcriptOrder;
-		if(!transcriptOrder.length && !temp_id) {
-			return this.dispatch('chatstore/getMessages', chatId);
+		if(!transcriptOrder.length && getCurrentUser()._id !== message.sender_id) {
+			return this.dispatch('chatstore/getMessages', chatId)
+					.then(() => notifyUser(message, chatId));
 		}
 		let appendId = message._id || temp_id;
 		if (transcriptOrder.includes(appendId)) {
@@ -137,13 +138,14 @@ let mutations = {
 		}
 		let transcript = messages[chatId].transcript;
 		if (transcriptOrder.includes(temp_id)) { // remove the temp message details
-			let index = transcriptOrder.indexOf(temp_id);
-			transcriptOrder.splice(index, 1);
-			delete transcript[temp_id];
+			delete transcript[temp_id].isSending; // Remove isSending Key to avoid blur
+			transcript[temp_id] = { ...message, ...transcript[temp_id] }
 		}
-		messages[chatId].transcriptOrder.unshift(appendId); // last message first
-		Vue.set(transcript, appendId, message);
-		notifyUser(message, chat._id);
+		else {
+			messages[chatId].transcriptOrder.unshift(appendId); // last message first
+			Vue.set(transcript, appendId, message);
+		}
+		notifyUser(message, chatId);
 	},
 
 	changeChatDetail({ chats }, { chatExists, chatId, message }) {
@@ -282,10 +284,10 @@ let getters = {
 		let chat = messages[chatId] || {};
 		return chat.transcript || {};
 	},
-
-	getMessageMeta : ({ messages }) => chatId => {
+	// To know if the chat has more messages
+	hasMoreMessages : ({ messages }) => chatId => {
 		let { hasMore } = messages[chatId] || {};
-		return { hasMore }
+		return hasMore;
 	}
 }
 

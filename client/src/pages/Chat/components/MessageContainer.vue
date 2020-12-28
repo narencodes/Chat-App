@@ -21,11 +21,11 @@
 					class="flex"
 					:class="{ 
 						'flexE flexV' : transcript.isSender, 
-						'last-mess-cont' : !transcript.isSender && message.isLast && !(transcript.isLast && chatDetail.isTyping)
+						'last-mess-cont' : !transcript.isSender && message.isLast && !(transcript.isLast && isTyping)
 					}"
 				>
 					<Avatar 
-						v-if="!transcript.isSender && message.isLast && !(transcript.isLast && chatDetail.isTyping)" 
+						v-if="!transcript.isSender && message.isLast && !(transcript.isLast && isTyping)" 
 						:userId="receiver._id"
 					/>
 					<div 
@@ -51,19 +51,19 @@
 				</div>
 			</div>
 		</template>
-		<Typing v-if="chatDetail.isTyping" :id="receiver._id"/>
+		<Typing v-if="isTyping" :id="receiver._id"/>
 	</div>
 </template>
 
 <script>
-import { chatDetailMixin, transcriptMixin } from "./mixins/chatDetailMixin";
+import { chatDetailMixin } from "./mixins/chatDetailMixin";
 import LoadingComponent from "@/components/Loading/LoadingComponent"
 import Avatar from "@/components/Image/Avatar";
 
 export default {
 	name : 'MessageContainer',
 
-	mixins : [chatDetailMixin, transcriptMixin],
+	mixins : [ chatDetailMixin ],
 
 	data() {
 		return {
@@ -121,13 +121,13 @@ export default {
 			!newVal && this.markRead();
 		},
 
-		'chatDetail.isTyping' : function() {
+		'isTyping' : function() {
 			this.$nextTick(() => {
 				this.scrollToBottom(true, true);
 			});
 		},
 
-		'chatDetail.last_message' : function() {
+		'lastMessage' : function() {
 			this.$nextTick(() => {
 				this.scrollToBottom(true, true);
 			});
@@ -163,7 +163,7 @@ export default {
 			let msgCont = this.$refs.msgCont;
 			let scrollTo = msgCont.scrollHeight;
 			this.isMessageLoading = true;
-			this.$store.dispatch('chatstore/getMessages', this.chatDetail._id)
+			this.$store.dispatch('chatstore/getMessages', this.chatId)
 				.then(() => {
 					this.$nextTick(() => {
 						msgCont.style.scrollBehavior = '';
@@ -174,13 +174,7 @@ export default {
 				.finally(() => {
 					this.isMessageLoading = false;
 				})
-		},
-
-		markRead() {
-			if (this.chatDetail.unread_count) {
-				this.$store.commit('chatstore/markRead', this.chatDetail._id);
-			}
-		},
+		}
 	},
 
 	components : {

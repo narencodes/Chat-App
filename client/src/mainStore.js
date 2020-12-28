@@ -6,19 +6,17 @@ Vue.use(Vuex)
 
 let state = {
 	authToken : localStorage.getItem(TOKEN_KEY) || '',
-	showBanner : false,
-	bannerProps : {},
-	showPopup : false,
-	popupConfig : {},
-	destination : undefined
+	bannerProps : undefined,
+	popupConfig : undefined,
+	destination : undefined,
+	tooltipProps : undefined
 }
 
 let mutations = {
 	setBannerProps(state, props) {
 		state.bannerProps = props;
-		state.showBanner = true;
 		setTimeout(() => {
-			state.showBanner = false;
+			state.bannerProps = undefined;
 		}, 3000);
 	},
 
@@ -27,9 +25,12 @@ let mutations = {
 	},
 
 	setPopupConfig(state, config) {
-		state.popupConfig = config ? config : {};
-		state.showPopup = config;
+		state.popupConfig = config;
 	},
+	
+	setTooltip(state, props) {
+        state.tooltipProps = props;
+    },
 
 	setDestination(state, to) {
 		state.destination = to;

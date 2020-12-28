@@ -2,14 +2,12 @@
 	<section class="flex h100">
 		<transition name="fade">
 			<Banner 
-				v-if="showBanner"
+				v-if="bannerProps"
 				v-bind="bannerProps"
 			/>
 		</transition>
-		<Popup
-			v-if="showPopup"
-			v-bind="popupConfig"
-		/>
+		<Popup v-if="popupConfig" v-bind="popupConfig" />
+		<Tooltip v-if="tooltipProps" v-bind="tooltipProps" />
 		<router-view />
 	</section>
 </template>
@@ -18,6 +16,7 @@
 import { mapState } from 'vuex';
 import Banner from "@/components/Banner/Banner";
 import Popup from "@/components/Popup/Popup";
+import Tooltip from '@/components/Tooltip/Tooltip';
 
 export default {
 	name : 'Home',
@@ -29,12 +28,13 @@ export default {
 	},
 
 	computed : {
-		...mapState([ 'showBanner', 'bannerProps', 'showPopup', 'popupConfig' ])
+		...mapState(['bannerProps', 'popupConfig', 'tooltipProps' ])
 	},
 
 	components : {
 		Banner,
-		Popup
+		Popup,
+		Tooltip
 	}
 }
 </script>

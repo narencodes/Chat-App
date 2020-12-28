@@ -1,7 +1,7 @@
 <template>
 	<div class="composer-cont">
 		<div class="attachment">
-			<label class="fa fa-picture-o">
+			<label class="fa fa-picture-o" v-tip="'Share an Image'">
 				<input 
 					type="file" 
 					accept="image/*"
@@ -51,7 +51,7 @@ export default {
 			composerValue : '',
 			isFocussed : false,
 			composerHeight : '',
-			isTyping : false,
+			isUserTyping : false,
 			typingInterval : '',
 			typingCloseTimeout : ''
 		}
@@ -96,14 +96,14 @@ export default {
 			if (this.receiver.status !== 'online') {
 				return;
 			}
-			let chatId = this.chatDetail._id;
-			!this.isTyping && this.sendTypingStatus(chatId, true);
-			this.isTyping = true;	
+			let chatId = this.chatId;
+			!this.isUserTyping && this.sendTypingStatus(chatId, true);
+			this.isUserTyping = true;	
 			this.clearTypingDispatcher();		
 			this.typingInterval = setTimeout(() => {
-				this.isTyping = false;
+				this.isUserTyping = false;
 				this.typingCloseTimeout = setTimeout(() => {
-					if (!this.isTyping) {
+					if (!this.isUserTyping) {
 						this.sendTypingStatus(chatId, false);
 					}
 				}, 500)
@@ -123,10 +123,10 @@ export default {
 			if (!this.composerValue) {
 				return;
 			}
-			this.isTyping = false;
+			this.isUserTyping = false;
 			this.clearTypingDispatcher();
 			let temp_id = getRandomStr();
-			let chatId = this.chatDetail._id;
+			let chatId = this.chatId;
 			let text = this.composerValue;
 			let params = {
 				text,
@@ -178,7 +178,7 @@ export default {
 				}
 				let temp_id = getRandomStr();
 				this.$store.dispatch('chatstore/upload', {
-					chatId : this.chatDetail._id,
+					chatId : this.chatId,
 					file : fileData,
 					temp_id
 				});
@@ -196,7 +196,7 @@ export default {
 		},
 
 		commitMessage(message, temp_id) {
-			this.$store.commit('chatstore/appendMessage', { chatId : this.chatDetail._id, message, temp_id });
+			this.$store.commit('chatstore/appendMessage', { chatId : this.chatId, message, temp_id });
 		}
 	},
 

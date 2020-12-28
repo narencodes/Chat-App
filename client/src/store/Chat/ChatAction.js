@@ -77,7 +77,7 @@ let ChatActions = {
 	},
 
 	markRead({ commit }, chatId) {
-		commit('markRead');
+		commit('markRead', chatId);
 		return axios.post(`${chatURL}/${chatId}/read`)
 	},
 

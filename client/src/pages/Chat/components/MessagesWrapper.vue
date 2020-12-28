@@ -1,6 +1,6 @@
 <template>
 	<div class="message-body">
-		<NoMessage v-if="!chatDetail.total_messages" />
+		<NoMessage v-if="!totalMessages" />
 		<LoadingComponent 
 			v-else-if="!isTranscriptLoaded" 
 			className="font30"
@@ -16,10 +16,10 @@
 			@click="goToBottom(false)"
 		>
 			<span 
-				v-if="chatDetail.unread_count"
+				v-if="unreadCount"
 				class="count"
 			>
-				{{ chatDetail.unread_count > 9 ? '9+' : chatDetail.unread_count }}
+				{{ unreadCount > 9 ? '9+' : unreadCount }}
 			</span>
 			<em class="fas fa-chevron-down"></em>
 		</div>
@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import { chatDetailMixin, transcriptMixin } from "./mixins/chatDetailMixin";
+import { chatDetailMixin } from "./mixins/chatDetailMixin";
 import MessageContainer from "./MessageContainer";
 import LoadingComponent from "@/components/Loading/LoadingComponent";
 
 export default {
 	name : "MessagesWrapper",
 
-	mixins : [chatDetailMixin, transcriptMixin],
+	mixins : [ chatDetailMixin ],
 
 	data() {
 		return {
@@ -49,7 +49,7 @@ export default {
 
 	methods : {
 		fetchTranscript() {
-			if (!this.chatDetail.total_messages || this.transcriptOrder.length) {
+			if (!this.totalMessages || this.transcriptOrder.length) {
 				this.markRead();
 				return;
 			}
@@ -59,12 +59,6 @@ export default {
 				.finally(() => {
 					this.isTranscriptLoaded = true;
 				})			
-		},
-
-		markRead() {
-			if (this.chatDetail.unread_count) {
-				this.$store.dispatch('chatstore/markRead', this.chatId);
-			}
 		},
 
 		// Used by parent component

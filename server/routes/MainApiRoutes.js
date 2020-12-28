@@ -6,11 +6,15 @@ const ChatRoutes = require('./ChatRoutes');
 const { authenticateToken } = require('../utils/Authentication');
 const path = require('path');
 const compression = require('compression');
+const cors = require('cors');
 
 const initializeRoutes = app => {
-    //Initialize body parser to get request body across all apis
-    app.use(express.json({ limit : '50mb' }));
+	/**
+	 * Declare Middlewares here
+	 */
+    app.use(express.json({ limit : '50mb' })); //Initialize body parser to get request body across all apis
 	app.use(compression()); // To compress API responses.
+	app.use(cors()); // To remove cross-origin error
     //Define all the api routes here
     /**
      * app.get to declare the routes here.
@@ -38,6 +42,4 @@ const initializeRoutes = app => {
 	});
 }
 
-module.exports = function(app) {
-    initializeRoutes(app);
-}
+module.exports = initializeRoutes;

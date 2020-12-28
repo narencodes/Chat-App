@@ -5,14 +5,15 @@ import { errorTexts } from "../configs/errorcode";
 
 // Shortcut to navigate between pages
 Vue.prototype.$goTo = (routeName, params) => {
-	if (!routeName) {
-		return;
-	}
-	let route = { name : routeName }
-	if (params) {
-		route.params = params;
-	}
-	Router.push(route);
+	// Route only if the current route name and destination route are not equal
+    if (routeName && Router.currentRoute.name !== routeName) {
+        let route = {
+            name: routeName
+        }
+        params && (route.params = params);
+        return Router.push(route);
+    }
+    return Promise.reject();
 };
 
 Vue.prototype.$showBanner = props => {

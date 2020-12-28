@@ -1,7 +1,7 @@
 <template>
 	<div 
 		class="chat-item"
-		:class="{ 'sel curNon' : selectedChatId === chatId }"
+		:class="{ 'sel' : selectedChatId === chatId }"
 		@click="switchChat"
 	>
 		<Avatar 
@@ -16,22 +16,22 @@
 					</span>
 				</div>
 				<span class="chat-time" v-if="lastMessage.time">
-					{{ lastMessage.time }}
+					{{ lastMessage.time | getFormattedTime }}
 				</span>
 			</div>
 			<div 
 				class="iCenter"
-				v-if="lastMessage.type || chatDetail.isTyping"
+				v-if="lastMessage.type || isTyping"
 			>
-				<span class="msg-cont" v-if="chatDetail.isTyping">Typing...</span>
+				<span class="msg-cont" v-if="isTyping">Typing...</span>
 				<template v-else>
 					<div class="msg-cont">
-						<span class="last-message">
+						<span class="last-message" v-tip.elips="lastMessage.text || lastMessage.file.name">
 							<em 
-								v-if="lastMessage.type === 'file'"
+								v-if="isFile"
 								class="fa fa-camera mR10"
 							>
-							</em>{{ lastMessage.type === 'text' ? lastMessage.text : lastMessage.fileName }}</span>
+							</em>{{ !isFile ? lastMessage.text : lastMessage.file.name }}</span>
 					</div>
 					<template>
 						<div 
@@ -50,10 +50,10 @@
 							</template>
 						</div>
 						<span 
-							v-else-if="chatDetail.unread_count"
+							v-else-if="unreadCount"
 							class="unread-count"
 						>
-							{{ chatDetail.unread_count > 1000 ? '999+' : chatDetail.unread_count }}
+							{{ unreadCount > 1000 ? '999+' : unreadCount }}
 						</span>
 					</template>
 				</template>
@@ -71,45 +71,17 @@ import { chatDetailMixin } from "./mixins/chatDetailMixin";
 export default {
 	name : 'ChatItem',
 
-	mixins : [chatDetailMixin],
-
-	props : {
-		chatId : {
-			type : String,
-			required : true
-		}
-	},
-
-	data() {
-		return {
-			lastMessage : {}
-		}
-	},
+	mixins : [ chatDetailMixin ],
 
 	computed : {
-		...mapState('chatstore', ['selectedChatId'])
+		...mapState('chatstore', ['selectedChatId']),
+		
+		isFile() {
+			return this.lastMessage.type === 'file';
+		}
 	},
 
 	methods : {
-		setLastMessage() {
-			let { last_message } = this.chatDetail;
-			if (!last_message.type) {
-				return;
-			}
-			let { text, time, sender_id, receiver_id, is_delivered, is_read, isSending, type, file = {} } = last_message
-			this.lastMessage = {
-				text,
-				type,
-				time : getFormattedTime(time),
-				sender_id,
-				receiver_id,
-				is_delivered,
-				is_read,
-				isSending,
-				fileName : file.name
-			};
-		},
-
 		switchChat() {
 			if (this.chatId !== this.selectedChatId) {
 				this.$goTo('Chat', { id : this.chatId });
@@ -119,14 +91,6 @@ export default {
 
 	components : {
 		Avatar
-	},
-
-	watch : {
-		'chatDetail.last_message' : {
-			immediate : true,
-			deep : true,
-			handler : 'setLastMessage'
-		}
 	}
 }
 </script>
@@ -149,6 +113,9 @@ export default {
 			& .read .fa-check {
 				color : #8ae2ffe3;
 			}
+		}
+		&.sel {
+			.curDef;
 		}
 	}
 	.chat-detail-wrapper {

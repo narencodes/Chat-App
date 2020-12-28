@@ -271,7 +271,7 @@ let markChatAsRead = req => {
 	return changeChatMeta({ chatId, userId, is_read : true })
 			.then(() => {
 				return {
-					status: 200
+					status: 204
 				}
 			})
 			.catch(() => {

@@ -13,7 +13,10 @@ export let chatDetailMixin = {
 			getChatDetail : 'chatstore/getChatDetail',
 			getReceiverDetail : 'chatstore/getReceiverDetail',
 			getFriendDetail : 'userstore/getFriendDetail',
-			currentUser : 'userstore/getCurrentUser'
+			currentUser : 'userstore/getCurrentUser',
+			getChatTranscript : 'chatstore/getChatTranscript',
+			getChatTranscriptOrder : 'chatstore/getChatTranscriptOrder',
+			hasMoreMessages : 'chatstore/hasMoreMessages'
 		}),
 
 		chatDetail() {
@@ -22,14 +25,24 @@ export let chatDetailMixin = {
 
 		receiver() {
 			return this.getReceiverDetail(this.chatId);
-		}
-	}
-}
-
-export let transcriptMixin = {
-	computed : {
-		...mapGetters("chatstore", ['getChatTranscript', 'getChatTranscriptOrder', 'getMessageMeta']),
-
+		},
+		
+		lastMessage() {
+			return this.chatDetail.last_message;
+		},
+		
+		unreadCount() {
+			return this.chatDetail.unread_count;
+		},
+		
+		isTyping() {
+			return this.chatDetail.isTyping;
+		},
+		
+		totalMessages() {
+			return this.chatDetail.total_messages;
+		},
+		
 		transcriptOrder() {
 			return this.getChatTranscriptOrder(this.chatId);
 		},
@@ -39,8 +52,24 @@ export let transcriptMixin = {
 		},
 
 		hasMore() {
-			let { hasMore } = this.getMessageMeta(this.chatId);
-			return hasMore;
+			return this.hasMoreMessages(this.chatId)
+		}
+	},
+	
+	methods: {
+		markRead() {
+			if (this.unreadCount) {
+				this.$store.dispatch('chatstore/markRead', this.chatId);
+			}
+		}
+	},
+}
+
+export let transcriptMixin = {
+	props : {
+		msgId : {
+			type : [String, Number],
+			required : true
 		}
 	}
 }
