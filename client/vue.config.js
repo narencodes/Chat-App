@@ -70,7 +70,7 @@ module.exports = {
 					chunks: 'all'
 				},
 				// Chat Components
-				chatcomponents: {
+				chat: {
 					test: /[\\/]pages[\\/](User|Chats)[\\/].*/,
 					name: 'Chats',
 					enforce: true,
@@ -124,6 +124,7 @@ module.exports = {
 					}
 				}
 			})],
+			removeEmptyChunks : true
 			// splitChunks : isdev ? {} : {
 			// 	cacheGroups : {
 			// 		default : {

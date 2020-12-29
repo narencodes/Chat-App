@@ -1,11 +1,11 @@
 <template>
 	<div class="message-body">
-		<NoMessage v-if="!totalMessages" />
+		<ChatBodyNoMessages v-if="!totalMessages" />
 		<LoadingComponent 
 			v-else-if="!isTranscriptLoaded" 
 			className="font30"
 		/>
-		<MessageContainer 
+		<ChatBodyMessageContainer 
 			v-else 
 			ref="msgCont"
 			:chatId="chatId" 
@@ -27,9 +27,11 @@
 </template>
 
 <script>
-import { chatDetailMixin } from "./mixins/chatDetailMixin";
-import MessageContainer from "./MessageContainer";
+import { chatDetailMixin } from "../mixins/chatDetailMixin";
+import ChatBodyNoMessages from '@/pages/Chat/components/ChatBody/ChatBodyNoMessages';
+import ChatBodyMessageContainer from '@/pages/Chat/components/ChatBody/ChatBodyMessageContainer';
 import LoadingComponent from "@/components/Loading/LoadingComponent";
+
 
 export default {
 	name : "MessagesWrapper",
@@ -69,16 +71,8 @@ export default {
 
 	components : {
 		LoadingComponent,
-		MessageContainer,
-		NoMessage : {
-			name : 'NoMessages',
-			template : `<div class="iCenter w100 h100">
-							<div class="iCenter flexV">
-								<em class="fa fa-hand-peace-o fa-4x mB20 clrGray"> </em>
-								<span class="font20 fW600">Say 'Hi' to your friend</span>
-							</div>
-						</div>`
-		}
+		ChatBodyMessageContainer,
+		ChatBodyNoMessages
 	},
 
 	watch : {
@@ -88,7 +82,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../../styles/common.less";
+@import (reference) "../../../../styles/common.less";
 
 .message-body {
 	.posrel;

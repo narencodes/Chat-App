@@ -3,7 +3,7 @@
 		class="chat-list"
 		@scroll="handleScroll"
 	>
-		<ChatItem 
+		<ChatListItem
 			v-for="id in chatIds"
 			:key="id"
 			:chatId="id"
@@ -19,7 +19,7 @@
 
 <script>
 import { mapState } from "vuex";
-import ChatItem from "./ChatItem";
+import ChatListItem from '@/pages/Chat/components/ChatListItem';
 import LoadingComponent from "@/components/Loading/LoadingComponent";
 
 export default {
@@ -32,7 +32,7 @@ export default {
 	},
 
 	components : {
-		ChatItem,
+		ChatListItem,
 		LoadingComponent
 	},
 	

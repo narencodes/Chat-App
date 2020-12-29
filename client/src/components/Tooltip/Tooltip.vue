@@ -145,7 +145,7 @@ export default {
     border-radius: 8px;
     min-width: 120px;
     letter-spacing: .3px;
-    background-color: #1c1c1c;
+    background-color: #2c2c2c;
     max-width: 300px;
     padding: 10px;
     /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.08); */
@@ -157,7 +157,7 @@ export default {
     width: 10px;
     height: 10px;
     .posabs;
-    background-color: #1c1c1c;
+    background-color: #2c2c2c;
     transform: rotate(45deg);
     /* box-shadow: -2px -2px 5px 0 rgba(0, 0, 0, 0.08); */
     z-index: -1;

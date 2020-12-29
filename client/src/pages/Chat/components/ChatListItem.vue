@@ -15,7 +15,7 @@
 						{{ receiver.user_name }}
 					</span>
 				</div>
-				<span class="chat-time" v-if="lastMessage.time">
+				<span class="chat-time" v-if="lastMessage.time" v-tip="getReadableDate(lastMessage.time, true)">
 					{{ lastMessage.time | getFormattedTime }}
 				</span>
 			</div>
@@ -65,8 +65,8 @@
 <script>
 import { mapState } from 'vuex';
 import Avatar from "@/components/Image/Avatar";
-import { getFormattedTime } from '@/utility/utils';
 import { chatDetailMixin } from "./mixins/chatDetailMixin";
+import { getReadableDate } from "@/utility/timeUtil";
 
 export default {
 	name : 'ChatItem',
@@ -86,7 +86,9 @@ export default {
 			if (this.chatId !== this.selectedChatId) {
 				this.$goTo('Chat', { id : this.chatId });
 			}
-		}
+		},
+		
+		getReadableDate
 	},
 
 	components : {

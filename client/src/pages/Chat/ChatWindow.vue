@@ -1,15 +1,15 @@
 <template>
 	<div class="message-container">
 		<ChatHeader :chatId="chatId" :is600px="$attrs.is600px" />
-		<MessagesWrapper :chatId="chatId" ref="msgWrapper"/>
+		<ChatBodyWrapper :chatId="chatId" ref="msgWrapper"/>
 		<ChatComposer :chatId="chatId" @scrollToBottom="scrollMsgToBottom" />
 	</div>
 </template>
 
 <script>
-import ChatHeader from "./ChatHeader";
-import MessagesWrapper from "./MessagesWrapper";
-import ChatComposer from "./ChatComposer";
+import ChatHeader from "./components/ChatHeader";
+import ChatBodyWrapper from '@/pages/Chat/components/ChatBody/ChatBodyWrapper';
+import ChatComposer from "./components/ChatComposer";
 
 export default {
 	name : 'ChatWindow',
@@ -23,7 +23,7 @@ export default {
 
 	components : {
 		ChatHeader,
-		MessagesWrapper,
+		ChatBodyWrapper,
 		ChatComposer
 	},
 
@@ -35,13 +35,13 @@ export default {
 
 	beforeDestroy() {
 		this.$store.commit('chatstore/setSelectedChatId', '');
-	},
+	}
 }
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../../styles/common.less";
-
+@import (reference) "../../styles/common.less";
+ 
 .message-container {
 	.flexV;
 	.flexG;

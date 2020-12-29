@@ -8,13 +8,14 @@
 			:is600px="is600px"
 			:chatId="selectedChatId" 
 		/>
-		<ViewChat v-else-if="is600px" />
+		<ChatBodyViewChat v-else-if="is600px" />
 	</div>
 </template>
 
 <script>
-import ChatList from "./ChatList";
+import ChatList from "./components/ChatList";
 import ChatWindow from "./ChatWindow";
+import ChatBodyViewChat from '@/pages/Chat/components/ChatBody/ChatBodyViewChat';
 import { isMobileDevice } from "@/utility/utils";
 
 export default {
@@ -40,14 +41,7 @@ export default {
 	components : {
 		ChatList,
 		ChatWindow,
-		ViewChat : {
-			name : 'ViewChat',
-			template : `<div class="iCenter w100 h100">
-							<div class="flexV">
-								<span class="font20">Select a chat to view the messages here</span>
-							</div>
-						</div>`
-		}
+		ChatBodyViewChat
 	}
 }
 </script>

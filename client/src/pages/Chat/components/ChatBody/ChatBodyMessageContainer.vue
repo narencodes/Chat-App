@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { chatDetailMixin } from "./mixins/chatDetailMixin";
+import { chatDetailMixin } from "../mixins/chatDetailMixin";
 import LoadingComponent from "@/components/Loading/LoadingComponent"
 import Avatar from "@/components/Image/Avatar";
 
@@ -210,7 +210,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "../../../styles/common.less";
+@import (reference) "../../../../styles/common.less";
 
 .mess-cont {
 	.flexV;

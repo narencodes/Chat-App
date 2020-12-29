@@ -15,8 +15,8 @@
 
 import { mapGetters } from 'vuex';
 import { getCapitalizedText } from "@/utility/utils";
-import ChatMeta from "./components/ChatMeta";
-import ChatBody from './components/ChatBody';
+import ChatMeta from "./ChatMeta";
+import ChatBody from './ChatBody';
 
 export default {
 	name : 'Chats',

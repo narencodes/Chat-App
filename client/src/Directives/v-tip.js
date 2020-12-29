@@ -23,7 +23,6 @@ const bindTooltip = (el, { value, arg, modifiers : { elips } }) => {
                 return;
             }
             el._timeout = setTimeout(() => {
-                console.log(el.scrollWidth, el.clientWidth);
                 let showToolTip = !elips || (el.scrollWidth > el.clientWidth); // Decides to show tooltip on all cases or only for ellipsis         
                 showToolTip && store.commit('setTooltip', getTooltipProps(el, arg));
             }, _tooltipTimeout);

@@ -25,7 +25,7 @@
 <script>
 import Avatar from "@/components/Image/Avatar";
 import { chatDetailMixin } from "./mixins/chatDetailMixin"; 
-import { getFormattedLastSeen } from "@/utility/utils";
+import { getFormattedLastSeen } from "@/utility/timeUtil";
 
 export default {
 	name : 'ChatHeader',
