@@ -1,12 +1,8 @@
 import Vue from "vue";
+import { formatImgURL } from "@/utility/utils";
 import { getFormattedTime, getReadableDate } from "@/utility/timeUtil";
 
-Vue.filter('imgURL', url => {
-	if (url.includes('http') || url.includes('web')) {
-		return url;
-	}
-	return require(`@/assets${url}`)
-});
+Vue.filter('imgURL', formatImgURL);
 
 Vue.filter('getFormattedTime', getFormattedTime);
 

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { flagPath } from '@/utility/constants';
+import { FLAG_PATH } from '@/utility/constants';
 import ButtonComponent from "@/components/Button/ButtonComponent";
 
 export default {
@@ -23,7 +23,7 @@ export default {
 	
 	data() {
 		return {
-			imgSrc : flagPath,
+			imgSrc : FLAG_PATH,
 			loginButton : {
 				content : 'Login',
 				clickHandler : () => { this.$goTo('Login') }

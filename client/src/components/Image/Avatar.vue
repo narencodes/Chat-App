@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { dummyImg } from "@/utility/constants";
+import { DUMMY_IMG } from "@/utility/constants";
 import { mapGetters } from 'vuex';
 
 export default {
@@ -74,11 +74,11 @@ export default {
 
 	methods : {
 		setImgURL() {
-			this.imageURL = this.user.imgURL || this.src || dummyImg;
+			this.imageURL = this.user.imgURL || this.src || DUMMY_IMG;
 		},
 		
 		handleImgLoadErr() {
-			this.imageURL = dummyImg;
+			this.imageURL = DUMMY_IMG;
 		},
 
 		handleImgClick(e) {

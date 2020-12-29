@@ -23,7 +23,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { chatIcon } from '@/utility/constants';
+import { CHAT_ICON } from '@/utility/constants';
 import ButtonComponent from "@/components/Button/ButtonComponent";
 import LoadingComponent from '@/components/Loading/LoadingComponent';
 import Chats from '@/pages/Chat/Chats';
@@ -90,7 +90,7 @@ export default {
 						</div>`,
 			data() {
 				return {
-					noChatImg : chatIcon,
+					noChatImg : CHAT_ICON,
 					chatBtnProps : {
 						content : 'Start Chat',
 						clickHandler : this.handleStartChat

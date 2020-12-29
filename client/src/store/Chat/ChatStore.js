@@ -12,8 +12,10 @@ let notifyUser = (msg, id) => {
 	if (sender_id === getCurrentUser()._id) {
 		return;
 	}
+	let { img_url, user_name } = getFriendDetail(sender_id);
 	let params = {
-		title : getFriendDetail(sender_id).user_name,
+		title : user_name,
+		icon : img_url,
 		body : file ? 'Sent you an attachment' : text,
 		onClick : () => Vue.prototype.$goTo('Chat', { id })
 	}

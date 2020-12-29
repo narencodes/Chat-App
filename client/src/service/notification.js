@@ -1,3 +1,6 @@
+import { LOGO_URL } from "@/utility/constants";
+import { formatImgURL } from "@/utility/utils";
+
 const isAllowed = () => Notification.permission === 'granted';
 
 const isDenied = () => Notification.permission === 'denied';
@@ -16,7 +19,7 @@ class Notify{
 	}
 
 	init() {
-		isAllowed() ? this.show() : this.request();
+		isAllowed() ? this.show() : requestPermission();
 	}
 
 	show() {
@@ -26,7 +29,7 @@ class Notify{
 		let { title, body } = this.params;
 		this.notification = new Notification(title, { 
 			body,
-			icon : '../assets/img/chat_icon.png'
+			icon : formatImgURL(this.params.icon || LOGO_URL)
 		});
 		this.setEvents();
 	}
@@ -38,14 +41,10 @@ class Notify{
 			this.params.onClick();
 		}
 	}
-
-	request() {
-		!isDenied() && requestPermission();
-	}
 }
 
 export const showNotification = params => {
 	if (window.Notification) {
-		new Notify(params);
+		!isDenied() && new Notify(params);
 	}
 };

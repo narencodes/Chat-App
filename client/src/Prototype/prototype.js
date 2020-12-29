@@ -6,7 +6,7 @@ import { errorTexts } from "../configs/errorcode";
 // Shortcut to navigate between pages
 Vue.prototype.$goTo = (routeName, params) => {
 	// Route only if the current route name and destination route are not equal
-    if (routeName && Router.currentRoute.name !== routeName) {
+    if (routeName && (Router.currentRoute.name !== routeName || params.id !== Router.currentRoute.params.id)) {
         let route = {
             name: routeName
         }

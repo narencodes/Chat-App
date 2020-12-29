@@ -22,3 +22,10 @@ export let isMobileDevice = () => {
 export let checkIfObjectId = id => {
 	return id.match(/^[0-9a-fA-F]{24}$/);
 }
+
+export let formatImgURL = url => {
+	if (url.includes('http') || url.includes('web')) {
+		return url;
+	}
+	return require(`@/assets${url}`);
+}
