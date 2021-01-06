@@ -17,14 +17,13 @@ export let formatHour = hour => {
 
 export let getDateUtilities = time => {
 	time = new Date(parseInt(time));
-	let [day, month, date, year] = time.toDateString().split(" "); // Wed Jun 10 2020 
-	let [ ,monthNumber ] = time.toLocaleDateString().split("/"); // 10/06/2020;
+	let [day, month, date, year] = time.toDateString().split(" "); // Wed Jun 10 2020
 	return {
 		day,
 		month,
 		date,
 		year,
-		monthNumber
+		monthNumber : time.getMonth() + 1
 	}
 }
 
@@ -41,7 +40,7 @@ export let getFormattedLastSeen = (time = Date.now()) => {
 	let { year : currentYear } = getDateUtilities(today);
 	let dayInMs = 24 * 60 * 60 * 1000;
 	let weekInMs = dayInMs * 7;
-	let { day, dateNumber, monthNumber, year} = getDateUtilities(time);
+	let { day, date, monthNumber, year} = getDateUtilities(time);
 	let formattedTime = getFormattedTime(time);
 	switch(true) {
 		case time > today:
@@ -52,6 +51,6 @@ export let getFormattedLastSeen = (time = Date.now()) => {
 			return `${text} ${day} at ${formattedTime}`
 		default :
 			// return 10/06 if current year and 10/06/2003 if previous and other years
-			return `${text} at ${dateNumber}/${monthNumber}${currentYear !== year ? `/${year}` : ``}`;
+			return `${text} at ${date}/${monthNumber}${currentYear !== year ? `/${year}` : ``}`;
 	}
 }
