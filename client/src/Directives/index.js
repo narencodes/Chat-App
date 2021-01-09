@@ -2,9 +2,9 @@ import Vue from 'vue';
 import tooltip from "./v-tip";
 import key from "./v-key";
 import clickOut from "./v-click-out";
+import { isMobileDevice } from "@/utility/utils";
 
 // To handle both v-click-out and v-key in same directive mainly to close the component
-
 let getEscapeModifier = ({ value }) => ({
     value,
     modifiers : { escape : true }
@@ -33,8 +33,15 @@ let copy = {
     }
 }
 
+let focus = {
+    inserted(el) {
+        !isMobileDevice && el.focus();
+    }
+}
+
 Vue.directive('click-out', clickOut);
 Vue.directive('tip', tooltip);
 Vue.directive('key', key);
 Vue.directive('exit', exit);
 Vue.directive('copy', copy);
+Vue.directive('focus', focus);

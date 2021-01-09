@@ -34,7 +34,7 @@ export default {
 
 	data() {
 		return {
-			isMobile : isMobileDevice()
+			isMobile : isMobileDevice
 		}
 	},
 

@@ -23,6 +23,7 @@
 				@blur="isFocussed = false"
 				@keydown.enter.prevent="sendMessage"
 				@paste="handleComposerInput"
+				v-focus
 			>
 			</textarea>
 		</div>
@@ -62,16 +63,10 @@ export default {
 	},
 
 	mounted() {
-		this.setComposerFocus();
 		this.setComposerHeight();
 	},
 
 	methods : {
-		setComposerFocus() {
-			let composer = this.$refs.composer;
-			composer && composer.focus();
-		},
-
 		setComposerHeight() {
 			this.composerHeight = this.$refs.composer.scrollHeight;
 		},

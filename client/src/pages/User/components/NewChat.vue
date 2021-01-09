@@ -99,9 +99,7 @@ export default {
 								class="link"
 								@click="$emit('copy')"
 							>
-								<span>
-									{{ code }}
-								</span>
+								<span>{{ code }}</span>
 								<em class="fa fa-clone"></em>
 							</div>
 						</div>`,
@@ -158,7 +156,7 @@ export default {
 						placeHolder : "User ID",
 						errorText : 'Invalid user id',
 						onInput : this.handleInput,
-						hasFocus : !isMobileDevice(),
+						hasFocus : !isMobileDevice,
 						onEnter : this.handleJoin
 					},
 					joinId : ''
