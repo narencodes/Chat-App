@@ -13,10 +13,6 @@ let rules = [{
 let plugins = [];
 if (!isdev) {
 	plugins.push(new CompressionPlugin());
-	rules.push({
-		test: /\.js$/,
-		loader: 'webpack-remove-debug'
-	});
 }
 
 module.exports = {

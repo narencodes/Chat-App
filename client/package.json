@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=dev vue-cli-service serve --watch --mode development",
+    "dev": "vue-cli-service serve --watch --mode development",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -27,9 +27,7 @@
     "less": "^3.12.2",
     "less-loader": "^5.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue-template-compiler": "^2.6.12",
-    "webpack-bundle-analyzer": "^3.6.1",
-    "webpack-remove-debug": "^0.1.0"
+    "vue-template-compiler": "^2.6.12"
   },
   "eslintConfig": {
     "root": true,
