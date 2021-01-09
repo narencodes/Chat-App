@@ -18,9 +18,9 @@ mongoose.connect(
         useUnifiedTopology: true
     },
     () => {
-		console.log('connected to DB');
-		// Pass the server variable to socket handler to initialise web socket
-		require('./WebSocket/SocketHandler').init(server);
+      console.log('connected to DB');
+      // Pass the server variable to socket handler to initialise web socket
+      require('./WebSocket/SocketHandler').init(server);
     }
 )
 

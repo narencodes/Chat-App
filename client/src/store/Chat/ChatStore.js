@@ -141,7 +141,7 @@ let mutations = {
 		let transcript = messages[chatId].transcript;
 		if (transcriptOrder.includes(temp_id)) { // remove the temp message details
 			delete transcript[temp_id].isSending; // Remove isSending Key to avoid blur
-			transcript[temp_id] = { ...message, ...transcript[temp_id] }
+			transcript[temp_id] = { ...message, ...transcript[temp_id] };
 		}
 		else {
 			messages[chatId].transcriptOrder.unshift(appendId); // last message first

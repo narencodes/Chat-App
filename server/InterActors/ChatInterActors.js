@@ -224,8 +224,8 @@ let handleUserChat = async (users, currentUserId, receiverId) => {
 let updateUserDetails = (users, currentUserId, receiverId) => {
 	users.forEach(user => {
 		user.total_chats++;
-		let pushId = checkIfSameId(user._id, currentUserId) ? receiverId : currentUserId;
-		user.friends.push(pushId);
+		let newFriendId = checkIfSameId(user._id, currentUserId) ? receiverId : currentUserId;
+		user.friends.push(newFriendId);
 		let { friends, total_chats, _id } = user
 		let query = [
 			{

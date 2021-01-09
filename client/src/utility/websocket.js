@@ -5,7 +5,7 @@ let SocketInstance;
 export let initializeSocket = user_id => {
 	import("socket.io-client")
 		.then(socket => {
-			let origin = (process.env.NODE_ENV === 'dev') ? "http://localhost:5000" : "/";
+			let origin = (process.env.NODE_ENV !== 'production') ? "http://localhost:5000" : "/";
 			SocketInstance = socket.connect(origin, {
 				query: {
 					user_id
