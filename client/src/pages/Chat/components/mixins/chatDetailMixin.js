@@ -16,7 +16,8 @@ export let chatDetailMixin = {
 			currentUser : 'userstore/getCurrentUser',
 			getChatTranscript : 'chatstore/getChatTranscript',
 			getChatTranscriptOrder : 'chatstore/getChatTranscriptOrder',
-			hasMoreMessages : 'chatstore/hasMoreMessages'
+			hasMoreMessages : 'chatstore/hasMoreMessages',
+			getMessageById : 'chatstore/getMessageById'
 		}),
 
 		chatDetail() {
@@ -70,6 +71,36 @@ export let transcriptMixin = {
 		msgId : {
 			type : [String, Number],
 			required : true
+		}
+	},
+	
+	computed : {
+		message() {
+			return this.getMessageById(this.chatId, this.msgId)
+		},
+		
+		isSender() {
+			return this.message._id === this.currentUser._id;
+		},
+		
+		type() {
+			return this.message.type;
+		},
+		
+		text() {
+			return this.message.text;
+		},
+		
+		file() {
+			return this.message.file;
+		},
+		
+		isSending() {
+			return this.message.isSending;
+		},
+		
+		uploadProgress() {
+			return this.message.progress;
 		}
 	}
 }

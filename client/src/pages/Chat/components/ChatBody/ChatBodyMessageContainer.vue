@@ -10,14 +10,14 @@
 		>
 			<LoadingComponent className="font25" />
 		</div>
-		<template v-for="(transcript, index) in formattedTranscript">
+		<template v-for="transcript in formattedTranscript">
 			<div
-				:key="index"
+				:key="transcript.list[0]._id"
 				:class="`${transcript.isSender ? 'sender' : 'rec'}-cont`"
 			>
 				<div 
 					v-for="message in transcript.list"
-					:key="message._id"
+					:key="message._id || message.temp_id"
 					class="flex"
 					:class="{ 
 						'flexE flexV' : transcript.isSender, 
@@ -28,26 +28,7 @@
 						v-if="!transcript.isSender && message.isLast && !(transcript.isLast && isTyping)" 
 						:userId="receiver._id"
 					/>
-					<div 
-						class="msg"
-						:class="[message.type, { 'sending' : message.isSending }]"
-					>
-						<span class="message" v-if="message.type === 'text'">
-							{{ message.text }}
-						</span>
-						<template v-else-if="message.type === 'file'" >
-							<img 
-								:src="message.file.buffer || message.file.url" 
-								:alt="message.file.name"
-							/>
-							<div 
-								v-if="message.isSending && message.progress < 100"
-								class="image-loader"
-								:style="{ display : 'flex', transform : `translateX(${message.progress}%)` }"
-							>
-							</div>
-						</template>
-					</div>
+					<ChatBodyMessageDisplay :chatId="chatId" :msgId="message.temp_id || message._id"/>
 				</div>
 			</div>
 		</template>
@@ -59,6 +40,7 @@
 import { chatDetailMixin } from "../mixins/chatDetailMixin";
 import LoadingComponent from "@/components/Loading/LoadingComponent"
 import Avatar from "@/components/Image/Avatar";
+import ChatBodyMessageDisplay from '@/pages/Chat/components/ChatBody/ChatBodyMessageDisplay';
 
 export default {
 	name : 'MessageContainer',
@@ -180,6 +162,7 @@ export default {
 	components : {
 		Avatar,
 		LoadingComponent,
+		ChatBodyMessageDisplay,
 		Typing : {
 			name : 'Typing',
 			template : `<div class="rec-cont">
@@ -233,58 +216,9 @@ export default {
 	.mR30;
 }
 
-.sender-cont .msg.text {
+/deep/ .sender-cont .msg.text {
 	background-color: #2d6cdf;
 	.clrW;
-}
-
-/deep/ .msg {
-	.iCenter;
-	.posrel;
-	margin-left: 55px;
-	.mB10;
-	border-radius: .7em;
-	line-height: 25px;
-	max-width: 50%;
-	margin-left: 55px;
-	letter-spacing: .3px;
-	& img {
-		width: 350px;
-		height : 200px;
-		border-radius: .7em;
-		object-fit: cover;
-	}
-	&.text {
-		padding: 10px 15px;	
-		background-color: #cfcfcf;
-	}
-	&.sending{
-		.ovrflw-hid;
-		&.text {
-			background-color: #2d6cdfba;
-		}
-	}
-	@media(max-width: 600px) {
-		margin-left: 45px;
-	}
-}
-
-.image-loader {
-	.posabs;
-	border-radius: .7em;
-	top : 0;
-	left : 0;
-	.w100;
-	.h100;
-	background-color: #4b4b4b;
-	opacity: 0.5;
-	transition: .5s;
-}
-
-/deep/ .message {
-	.posrel;
-	.font18;
-    word-break: break-word;
 }
 
 /deep/ .last-mess-cont {

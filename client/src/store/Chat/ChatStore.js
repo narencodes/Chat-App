@@ -105,6 +105,9 @@ let mutations = {
 			return;
 		}
 		let isChatOpen = chat_id === selectedChatId;
+		if (isChatOpen) {
+			this.commit('chatstore/markRead', chat_id);
+		}
 		let params = {
 			is_delivered: true,
 			is_read: isChatOpen,
@@ -290,6 +293,11 @@ let getters = {
 	hasMoreMessages : ({ messages }) => chatId => {
 		let { hasMore } = messages[chatId] || {};
 		return hasMore;
+	},
+	
+	getMessageById : ({ messages }) => (chatId, msgId) => {
+		let { transcript = {} } = messages[chatId] || {};
+		return transcript[msgId];
 	}
 }
 

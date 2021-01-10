@@ -135,6 +135,7 @@ export default {
 			let message = {
 				...this.getMessageMeta(),
 				text,
+				temp_id,
 				type : 'text',
 			}
 			this.commitMessage(message, temp_id);
