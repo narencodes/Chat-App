@@ -1,6 +1,7 @@
 <template>
     <transition enter-active-class="fade-in" leave-active-class="fade-out" appear>
         <span 
+            v-if="showTooltip"
             :class="['tip', arrowMapping[tipDirection]]" 
             :style="{ 
                 top : `${top}px`, 
@@ -48,6 +49,9 @@ export default {
     },
     
     computed : {
+        showTooltip() {
+            return document.contains(this.el);
+        },
         // Targets properties - width, height, top, bottom, left
         targetProps() {
             return this.el.getBoundingClientRect();

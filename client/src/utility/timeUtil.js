@@ -51,6 +51,6 @@ export let getFormattedLastSeen = (time = Date.now()) => {
 			return `${text} ${day} at ${formattedTime}`
 		default :
 			// return 10/06 if current year and 10/06/2003 if previous and other years
-			return `${text} at ${date}/${monthNumber}${currentYear !== year ? `/${year}` : ``}`;
+			return `${text} at ${formatDigit(date)}/${formatDigit(monthNumber)}${currentYear !== year ? `/${year}` : ``}`;
 	}
 }
