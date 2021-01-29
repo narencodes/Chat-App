@@ -160,7 +160,7 @@ let createNewChat = req => {
 			})
 			.catch(err => {
 				console.log(err);
-				return Promise.reject();
+				return Promise.reject(err);
 			})
 }
 

@@ -15,21 +15,13 @@
 				:key="transcript.list[0]._id"
 				:class="`${transcript.isSender ? 'sender' : 'rec'}-cont`"
 			>
-				<div 
+				<ChatBodyMessageDisplay 
 					v-for="message in transcript.list"
 					:key="message._id || message.temp_id"
-					class="flex"
-					:class="{ 
-						'flexE flexV' : transcript.isSender, 
-						'last-mess-cont' : !transcript.isSender && message.isLast && !(transcript.isLast && isTyping)
-					}"
-				>
-					<Avatar 
-						v-if="!transcript.isSender && message.isLast && !(transcript.isLast && isTyping)" 
-						:userId="receiver._id"
-					/>
-					<ChatBodyMessageDisplay :chatId="chatId" :msgId="message.temp_id || message._id"/>
-				</div>
+					:isLast="!transcript.isSender && message.isLast && !(transcript.isLast && isTyping)"
+					:chatId="chatId" 
+					:msgId="message.temp_id || message._id"
+				/>
 			</div>
 		</template>
 		<Typing v-if="isTyping" :id="receiver._id"/>
@@ -216,7 +208,7 @@ export default {
 	.mR30;
 }
 
-/deep/ .sender-cont .msg.text {
+/deep/ .sender-cont .msg-holder {
 	background-color: #2d6cdf;
 	.clrW;
 }
@@ -225,12 +217,12 @@ export default {
 	.mB10;
 }
 
-/deep/ .last-mess-cont .msg {
+/deep/ .last-mess-cont .msg-wrapper {
 	margin: 0px;
 	.mL10;
 }
 
-/deep/ .last-mess-cont .msg:not(.file)::after {
+/deep/ .last-mess-cont .msg-wrapper:not(.file)::after {
 	content: '';
 	.posabs;
 	left: -5px;

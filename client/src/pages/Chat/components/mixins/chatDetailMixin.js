@@ -1,4 +1,5 @@
 import { mapGetters } from "vuex";
+import { getReadableDate } from "@/utility/timeUtil";
 
 export let chatDetailMixin = {
 	props: {
@@ -80,7 +81,7 @@ export let transcriptMixin = {
 		},
 		
 		isSender() {
-			return this.message._id === this.currentUser._id;
+			return this.message.sender_id === this.currentUser._id;
 		},
 		
 		type() {
@@ -101,6 +102,10 @@ export let transcriptMixin = {
 		
 		uploadProgress() {
 			return this.message.progress;
+		},
+		
+		readableDate() {
+			return getReadableDate(this.message.time, true);
 		}
 	}
 }

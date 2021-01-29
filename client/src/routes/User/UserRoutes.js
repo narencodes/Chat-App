@@ -27,25 +27,23 @@ const loadResource = (to, from, next) => {
 	// Load the user store and check if the user is logged In
 	Promise.all([loadUserStore(), verifyToken(to, next)])
 		.then(() => {
-			// Load User Data here
-			let { isProfileLoaded } = store.state.userstore;
-			!isProfileLoaded ? fetchProfile(next) : next();
+			fetchProfile(next)
 		})
 }
 
 const fetchProfile = next => {
 	store.dispatch('userstore/getCurrentUserDetails')
 		.then(userId => {
-			next();
 			initializeSocket(userId);
 			store.dispatch('userstore/getFriendsDetails');
 		})
 		.catch(errCode => {
 			if ([ INVALID_TOKEN, USER_DELETED ].includes(errCode)) {
 				handleInvalidToken();
+				return next({ name : "Login" });
 			}
-			next({ name : "Login" });
 		});
+	next();
 }
 
 // If the token is found invalid remove the authentication from local storage and set empty value in the store

@@ -3,3 +3,4 @@ package-lock.json
 /server/public
 migration-data
 .env
+.vscode

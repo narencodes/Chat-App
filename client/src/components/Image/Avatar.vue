@@ -6,6 +6,7 @@
 			:src="imageURL | imgURL"
 			@error="handleImgLoadErr"
 			@click="handleImgClick"
+			alt="profile-pic"
 		/>
 		<em  v-if="showStatus" :class="['status-icon', (user.status || status)]"></em>
 	</div>
