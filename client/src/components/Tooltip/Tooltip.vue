@@ -144,13 +144,14 @@ export default {
 .tip {
     .font20;
     .clrW;
-    .iCenter;
     .posfix;
+    word-break: break-word;
+    .taC;
     border-radius: 8px;
     min-width: 120px;
     letter-spacing: .3px;
     background-color: #2c2c2c;
-    max-width: 500px;
+    max-width: 350px;
     padding: 10px;
     /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.08); */
     z-index: 1000;
@@ -162,13 +163,14 @@ export default {
     height: 10px;
     .posabs;
     background-color: #2c2c2c;
-    transform: rotate(45deg);
     /* box-shadow: -2px -2px 5px 0 rgba(0, 0, 0, 0.08); */
     z-index: -1;
 }
 
 [class*="t-top"]::before {
     top: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
 }
 
 .t-topL::before {
@@ -181,6 +183,8 @@ export default {
 
 [class*="t-left"]::before {
     left: -5px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
 }
 
 .t-leftT::before {
@@ -192,7 +196,9 @@ export default {
 }
 
 [class*="t-bottom"]::before {
+    left : 50%;
     bottom: -5px;
+    transform: translateX(-50%) rotate(45deg);
 }
 
 .t-bottomL::before {
@@ -205,6 +211,8 @@ export default {
 
 [class*="t-right"]::before {
     right: -5px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
 }
 
 </style>
