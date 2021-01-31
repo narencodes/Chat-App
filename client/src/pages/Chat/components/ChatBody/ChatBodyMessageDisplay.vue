@@ -7,7 +7,7 @@
 	>
 		<Avatar 
 			v-if="isLast" 
-			:userId="message.receiver_id"
+			:userId="message.sender_id"
 		/>
 		<div
 			:class="['msg-wrapper', type, { 'sending' : isSending }]"
