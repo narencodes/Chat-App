@@ -1,5 +1,6 @@
 import { LOGO_URL } from "@/utility/constants";
 import { formatImgURL } from "@/utility/utils";
+import { playSound } from "./notificationsound";
 
 const isAllowed = () => Notification.permission === 'granted';
 
@@ -19,6 +20,7 @@ class Notify{
 	}
 
 	init() {
+		playSound();
 		isAllowed() ? this.show() : requestPermission();
 	}
 

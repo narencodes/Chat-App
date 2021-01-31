@@ -150,7 +150,7 @@ export default {
     min-width: 120px;
     letter-spacing: .3px;
     background-color: #2c2c2c;
-    max-width: 300px;
+    max-width: 500px;
     padding: 10px;
     /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.08); */
     z-index: 1000;

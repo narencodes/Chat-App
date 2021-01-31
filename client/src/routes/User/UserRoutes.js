@@ -93,6 +93,12 @@ let UserRoutes = [
 		component: () => import( /* webpackChunkName: "Chats" */ '@/pages/User/User'),
 		children : [
 			{
+				path : ':userId/join',
+				name : 'JoinChat',
+				props : true,
+				component: () => import( /* webpackChunkName: "Chats" */ '@/pages/User/UserChats'),
+			},
+			{
 				path : 'chats',
 				name : 'UserChats',
 				props : true,

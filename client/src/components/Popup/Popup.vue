@@ -6,14 +6,9 @@
 			class="dialog-popup"
 			v-exit="closePopup"
 		>
-			<em 
-				v-if="hasClose"
-				class="close fa fa-times"
-				@click="closePopup"
-			>
-			</em>
+			<IconComponent type="close"></IconComponent>
 			<div>
-				<em :class="['icon', icon]"></em>
+				<IconComponent :type="iconType" className="icon"></IconComponent>
 				<div class="title">
 					{{ title }}
 				</div>
@@ -29,7 +24,7 @@
 					/>
 				</div>
 			</div>	
-			<em :class="['bg-icon', icon]"></em>			
+			<IconComponent :type="iconType" className="bg-icon"></IconComponent>			
 		</div>
 	</div>
 </template>
@@ -37,16 +32,14 @@
 <script>
 
 import ButtonComponent from "@/components/Button/ButtonComponent";
-
-let iconMapping = {
-	delete : 'fa fa-trash'
-}
+import IconComponent from '@/components/Icon/IconComponent';
 
 export default {
 	name : 'Popup',
 
 	components : {
-		ButtonComponent
+		ButtonComponent,
+		IconComponent
 	},
 
 	props : {
@@ -69,18 +62,17 @@ export default {
 		iconType : {
 			type : String,
 			required : true
-		}
-	},
-
-	data() {
-		return {
-			icon : iconMapping[this.iconType]
+		},
+		closeHandler : {
+			type : Function,
+			default : () => {}
 		}
 	},
 
 	methods : {
 		closePopup() {
 			this.$closePopup();
+			this.closeHandler();
 		}
 	}
 }

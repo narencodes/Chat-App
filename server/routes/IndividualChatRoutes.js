@@ -73,6 +73,7 @@ let handleFileFetch = (req, res) => {
 	fetchFile(req)
 		.then(({ data, type }) => {
 			res.setHeader('Content-Type', type);
+			res.setHeader('Cache-Control', `max-age=${1000 * 60 * 60 * 24 * 60}`);
 			res.send(data);
 		})
 		.catch(() => {

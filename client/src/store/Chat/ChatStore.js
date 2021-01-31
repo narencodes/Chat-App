@@ -76,12 +76,12 @@ let mutations = {
 		let { chatIds, chats, chatLoadData, messages } = state;
 		data.forEach(chat => {
 			let chatId = chat._id;
-			chatIds.push(chatId);
+			!chatIds.includes(chatId) && chatIds.push(chatId);
 			Vue.set(chats, chatId, chat);
 			Vue.set(messages, chatId, getMessageObj());
 		});
 		chatLoadData.hasMore = hasMore;
-		chatLoadData.time = data.pop().last_active_time;
+		chatLoadData.time = data.length && data.pop().last_active_time;
 		state.isChatLoaded = true;
 	},
 

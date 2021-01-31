@@ -1,7 +1,7 @@
 <template>
     <div class="image-wrapper">
         <div v-if="isLoading" class="h100 image-loader">
-            <em class="fa fa-file-image center font30 clrGray"></em>
+            <IconComponent type="image" className="center font30 clrGray"></IconComponent>
         </div>
         <img
             class="w100 h100"
@@ -19,8 +19,14 @@
 </template>
 
 <script>
+import IconComponent from '@/components/Icon/IconComponent';
+
 export default {
     name : 'ImgFile',
+    
+    components: {
+        IconComponent,
+    },
     
     props : {
         uploadProgress : {

@@ -30,10 +30,6 @@ setAxiosAuthorization();
 // config to change Axios success response and error response
 import "./configs/configThirdParty";
 
-// For google API's
-import { handleGapiLoad } from "./configs/gapi";
-handleGapiLoad();
-
 //For Service Worker
 import { init } from "./service/serviceworker";
 init();

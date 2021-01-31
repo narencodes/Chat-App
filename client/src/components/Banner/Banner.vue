@@ -1,31 +1,21 @@
 <template>
 	<div class="banner">
-		<em 
-			v-if="hasIcon"
-			:class="[ bannerIcon, { error : isError } ]"
-		>
-		</em>
-		<span> 
-			{{ content }}
-		</span>			
+		<IconComponent v-if="iconType" :type="iconType" :className="isError ? 'error' : ''"></IconComponent>
+		<span>{{ content }}</span>			
 		</div>
 </template>
 
 <script>
-
-let iconMapping = {
-	success : 'fa fa-check',
-	error : 'fa fa-exclamation'
-};
+import IconComponent from '@/components/Icon/IconComponent';
 
 export default {
 	name : "Banner",
+	
+	components: {
+		IconComponent,
+	},
 
 	props : {
-		hasIcon : {
-			type : Boolean,
-			default : true
-		},
 		iconType : {
 			type : String,
 			default : ''
@@ -38,26 +28,6 @@ export default {
 			type : Boolean,
 			default : false
 		}
-	},
-
-	data() {
-		return {
-			bannerIcon : ''
-		}
-	},
-
-	beforeMount() {
-		this.init();
-	},
-
-	methods: {
-		init() {
-			this.setIcon();
-		},
-		
-		setIcon() {
-			this.bannerIcon = iconMapping[this.iconType];
-		}
-	},
+	}
 }
 </script>

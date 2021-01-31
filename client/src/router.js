@@ -33,6 +33,7 @@ let titleMapping = {
 }
 
 router.beforeEach((to, from, next) => {
+	Vue.prototype.$closePopup();
 	let { name } = to;
 	document.title = titleMapping[name] || 'Chit Chat';
 	next();

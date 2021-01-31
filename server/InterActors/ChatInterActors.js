@@ -145,6 +145,11 @@ let fetchUniqueChat = req => {
  */
 let createNewChat = req => { 
 	let { userId, body : { receiver_id } } = req;
+	if (!receiver_id) {
+		return Promise.reject({
+			message : 'User id missing'
+		})
+	}
 	let query = [{
 		_id: receiver_id
 	}];

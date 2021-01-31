@@ -5,6 +5,9 @@ export const GAPI_CLIENT_ID = '504897852188-v3t8cp3d541u3u15vefn9cbqp9grq6q1.app
 
 export const ORIGIN = window.location.origin;
 
+export const FONT_AWESOME_URL = 'https://kit.fontawesome.com/10806da71c.js';
+export const GOOGLE_PLATFORM_URL = 'https://apis.google.com/js/platform.js';
+
 // Constant url for image paths
 let imgPath = `/img`;
 export const FLAG_PATH = `${imgPath}/indianflag.png`;

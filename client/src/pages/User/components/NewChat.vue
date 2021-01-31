@@ -10,7 +10,7 @@
 			/>
 			<ChatInvite 
 				@close="handleClose"
-				:code="currentUser._id"
+				:link="joinLink"
 				@copy="copyCode"
 			/>
 			<hr />
@@ -29,7 +29,8 @@ import ButtonComponent from "@/components/Button/ButtonComponent";
 import IconComponent from "@/components/Icon/IconComponent";
 import InputComponent from "@/components/Input/InputComponent";
 import { isMobileDevice, checkIfObjectId } from "@/utility/utils";
-import { USER_NOT_FOUND } from '@/configs/errorcode' 
+import { USER_NOT_FOUND } from '@/configs/errorcode';
+import { ORIGIN } from "@/utility/constants";
 
 export default {
 	name : "NewChat",
@@ -41,9 +42,11 @@ export default {
 	},
 
 	computed: {
-		...mapState({
-			currentUser : ({ userstore }) => userstore.currentUser
-		})
+		...mapState('userstore', ['currentUser']),
+		
+		joinLink() {
+			return `${ORIGIN}/user/${this.currentUser._id}/join`;
+		}
 	},
 
 	methods : {
@@ -52,7 +55,7 @@ export default {
 		},
 
 		copyCode() {
-			navigator.clipboard.writeText(this.currentUser._id)
+			navigator.clipboard.writeText(this.joinLink)
 				.then(() => {
 					this.$successBanner('Copied to clipboard');
 					this.$emit('close');
@@ -67,11 +70,8 @@ export default {
 				this.showIdError = true;
 				return;
 			};
-			let params = {
-				receiver_id : id
-			}
 			btnContainer.isLoading = true;
-			this.$store.dispatch('chatstore/createNewChat', params)
+			this.$store.dispatch('chatstore/createNewChat', id)
 				.then(chat => {
 					this.$goTo('Chat', { id : chat._id });
 					this.handleClose();
@@ -94,17 +94,17 @@ export default {
 		ChatInvite : {
 			name : 'ChatInvite',
 			template : `<div class="invite-link">
-							Send this code to your friends to connect with You!
+							Send this join link to your friends to connect with You!
 							<div 
 								class="link"
 								@click="$emit('copy')"
 							>
-								<span>{{ code }}</span>
+								<span v-tip.elips="link">{{ link }}</span>
 								<em class="fa fa-clone"></em>
 							</div>
 						</div>`,
 			props : {
-				code : {
+				link : {
 					type : String,
 					required : true
 				}

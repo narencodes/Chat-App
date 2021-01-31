@@ -44,8 +44,11 @@ import { mapState, mapGetters } from 'vuex';
 import InputComponent from "@/components/Input/InputComponent";
 import ButtonComponent from "@/components/Button/ButtonComponent";
 import { isValidEmail } from "@/utility/utils";
+import { GOOGLE_PLATFORM_URL, GAPI_CLIENT_ID } from "@/utility/constants";
 import { INCORRECT_PASSWORD } from "@/configs/errorcode";
-import LoadingComponent from '@/components/Loading/LoadingComponent'
+import LoadingComponent from '@/components/Loading/LoadingComponent';
+
+const _GOOGLE_SCRIPT_ID = 'gapi_script';
 
 export default {
 	name : "Login",
@@ -186,25 +189,57 @@ export default {
 			computed : {
 				...mapGetters([ 'isLoggedIn' ])
 			},
-
-			mounted() {
+			
+			beforeMount() {
+				this.appendPlatformScript();
+			},
+			
+			mounted () {
 				this.renderButton();
 			},
 
 			methods : {
-				renderButton() {
+				appendPlatformScript() {
+					if (document.getElementById(_GOOGLE_SCRIPT_ID)) {
+						return;
+					}
+					let script = document.createElement('script');
+					script.id = _GOOGLE_SCRIPT_ID;
+					script.src = GOOGLE_PLATFORM_URL;
+					script.onload = this.handleGapiLoad;
+					document.head.appendChild(script);
+				},
+				
+				handleGapiLoad() {
+					window.gapi.load('auth2', () => {
+						window.auth2 = window.gapi.auth2.init({
+							client_id: GAPI_CLIENT_ID,
+							ux_mode : 'popup'
+						});
+						this.renderButton();
+					});
+				},
+				
+				
+				async renderButton() {
 					if (!window.gapi) {
 						return;
 					}
+					try {
+						await window.gapi.auth2.getAuthInstance().signOut();
+					}
+					catch (e) {
+						
+					}
 					window.gapi.signin2.render('googleButton', {
-						'scope': 'profile email',
-						'width': 200,
-						'height': 40,
-						'longtitle': false,
-						'theme': 'dark',
-						'onsuccess': this.handleGoogleSignIn,
-						'onfailure': () => {}
-					});
+								'scope': 'profile email',
+								'width': 200,
+								'height': 40,
+								'longtitle': false,
+								'theme': 'dark',
+								'onsuccess': this.handleGoogleSignIn,
+								'onfailure': () => {}
+							});
 				},
 
 				handleGoogleSignIn(googleUser) {

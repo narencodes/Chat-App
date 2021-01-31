@@ -123,10 +123,6 @@ export default {
 
 		wipeLocalData() {
 			return new Promise(async (resolve) => {
-				// If the current User is a google user sign him out from google.
-				if (this.currentUser.account_type ==='google') {
-					await window.gapi.auth2.getAuthInstance().signOut();
-				}
 				closeSocket();
 				this.clearToken();
 				this.clearStore();

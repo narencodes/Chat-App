@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getFriendsDetails, deleteUserById, checkIfUserExists, getProfile } = require('../InterActors/UserInterActors');
+const { getFriendsDetails, deleteUserById, checkIfUserExists, getProfile, getUserData } = require('../InterActors/UserInterActors');
 const { authenticateToken } = require('../utils/Authentication');
 const { genAuthToken } = require("../Dependencies/AuthToken");
 
@@ -20,6 +20,7 @@ let handleUserCheck = async (req, res) => {
 		.catch(err => {
 			console.log(err);
 			errorHandler(res, {
+				code : 'u404',
 				message : 'Unable to check'
 			})
 		})
@@ -32,7 +33,7 @@ let handleUserCheck = async (req, res) => {
  */
 router.get('/check', handleUserCheck);
 
-let fetchUserProfile = async (req, res) => {
+let fetchCurrentUserProfile = async (req, res) => {
 	let { userId } = req;
 	getProfile(userId)
 		.then(userObj => {
@@ -67,7 +68,7 @@ let fetchUserProfile = async (req, res) => {
  * @desc To Send User data to client based on JSON web token
  * @access Private
  */
-router.get('/profile', authenticateToken, fetchUserProfile);
+router.get('/profile', authenticateToken, fetchCurrentUserProfile);
 
 let fetchFriends = (req, res) => {
 	let { userId } = req;
@@ -121,5 +122,34 @@ let deleteUser = async (req, res) => {
  * @access Private
  */
 router.post('/delete', authenticateToken, deleteUser);
+
+let fetchUserData = (req, res) => {
+	getUserData(req)
+		.then(userObj => {
+			if (!userObj) {
+				errorHandler(res, {
+					code : "u404",
+					message : 'User not found'
+				});
+				return;
+			}
+			res.send({
+				data: userObj
+			});
+		})
+		.catch(() => {
+			errorHandler(res, {
+				code : 'u500',
+				message: 'Unable to fetch Profile'
+			});
+		})
+};
+
+/**
+ * @route GET /api/user/:id
+ * @desc To Send required User data to client for joining the chat
+ * @access Private
+ */
+router.get('/:userId', authenticateToken, fetchUserData);
 
 module.exports = router;

@@ -12,7 +12,10 @@ let errorHandler = err => {
 let chatURL = '/api/chats';
 
 let ChatActions = {
-	createNewChat({ commit }, params) {
+	createNewChat({ commit }, userId) {
+		let params = {
+			receiver_id : userId
+		}
 		return axios.post(`${chatURL}/new`, params)
 				.then(({ chat_details }) => {
 					commit('addChat', chat_details);

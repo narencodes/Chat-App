@@ -53,12 +53,12 @@ const getUserByKeys = (query = [], requirement = {}) => {
 			})
 }
 
-let getProfile = user_id => {
+let getProfile = (user_id, requirements) => {
 	let query = [{
 		_id: user_id
 	}]
 	// We don't need password and friends from the database
-	let requirements = {
+	requirements = requirements || {
 		password: 0,
 		friends: 0,
 		__v: 0
@@ -66,6 +66,28 @@ let getProfile = user_id => {
 	return getUser(query, requirements)
 			.then(data => data)
 			.catch(err => Promise.reject(err));
+}
+
+let getUserData = req => {
+	let { userId : currentUserId, params : { userId } } = req; 
+	let requirements = {
+		friends : 1,
+		user_name : 1
+	}
+	return getProfile(userId, requirements)
+			.then(data => {
+				if (!data) {
+					return;
+				}
+				return {
+					user_name : data.user_name,
+					is_friend : data.friends.includes(currentUserId)
+				};
+			})
+			.catch(err => {
+				console.log(err);
+				return Promise.reject();
+			})
 }
 
 /**
@@ -175,6 +197,7 @@ module.exports = Object.freeze({
 	getProfile,
 	checkIfUserExists,
 	getFriends,
+	getUserData,
 	getFriendsDetails,
 	getUserByKeys,
 	fetchUsers,

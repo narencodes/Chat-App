@@ -10,6 +10,7 @@ const errorTexts = {
 	'1001' : 'Unable to Login, Try again later',
 	'304' : 'Unable to Delete User',
 	'c404' : 'Chat not found',
+	'u404' : "User doesn't exist in Chitchat",
 	'505' : 'Already Connected with the user',
 	'510' : 'Unable to create Chat'
 }

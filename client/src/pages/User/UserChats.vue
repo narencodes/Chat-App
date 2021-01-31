@@ -36,12 +36,17 @@ export default {
 		id : {
 			type : [ String, Number ],
 			default : ''
+		},
+		userId : {
+			type : [String, Number],
+			default : ''
 		}
 	},
 
 	data() {
 		return {
-			showNewChat : false
+			showNewChat : false,
+			joinUserData : undefined
 		}
 	},
 
@@ -55,10 +60,66 @@ export default {
 	},
 
 	beforeMount() {
-		this.fetchChats();
+		this.init();
 	},
 
 	methods : {
+		init() {
+			this.userId && this.fetchUserData();
+			this.fetchChats();
+		},
+		
+		fetchUserData() {
+			if(this.userId === this.currentUser._id) {
+				this.goToChats();
+				return this.$errorBanner('Invalid Join link');
+			}
+			this.$store.dispatch('userstore/getUserData', this.userId)
+				.then(this.handleJoinChat);
+		},
+		
+		goToChats() {
+			this.$goTo('UserChats');
+		},
+		
+		handleJoinChat(userData) {
+			if(userData.is_friend) {
+				this.$goTo('UserChats');
+				return this.$errorBanner('User is already in your friend list')
+			}
+			let closeHandler = () => {
+				this.goToChats();
+				this.$closePopup();
+			}
+			let buttonsList = [
+				{
+					content : 'No',
+					className : 'wbtn mR15',
+					clickHandler : closeHandler
+				},
+				{
+					content : 'Yes',
+					className : 'rbtn',
+					isLoading : false,
+					clickHandler : () => {
+						buttonsList[1].isLoading = true;						
+						this.$store.dispatch('chatstore/createNewChat', this.userId)
+							.then(chat => {
+								this.$goTo('Chat', { id : chat._id });
+							})
+							.catch(closeHandler)
+					}
+				}
+			]
+			this.$openPopup({
+				title : 'Start Chat',
+				content : `Do you want to start a chat with ${userData.user_name} and become friends?`,
+				buttonsList,
+				iconType : 'info',
+				closeHandler
+			})
+		},
+		
 		fetchChats() {
 			if (!this.totalChats) {
 				return;
