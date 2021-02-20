@@ -2,7 +2,7 @@
 	<div class="banner">
 		<IconComponent v-if="iconType" :type="iconType" :className="isError ? 'error' : ''"></IconComponent>
 		<span>{{ content }}</span>			
-		</div>
+	</div>
 </template>
 
 <script>
