@@ -28,14 +28,10 @@ let getMessages = req => {
 	return ChatDB.getPaginatedList(dbQuery)
 			.then(({ data, hasMore }) => {
 				return {
-					status: '200',
 					data: {
-						list: 'messages',
-						data: {
-							chat_id: chatId,
-							hasMore,
-							messages: data
-						}
+						chat_id: chatId,
+						hasMore,
+						messages: data
 					}
 				}
 			})

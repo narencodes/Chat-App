@@ -1,13 +1,14 @@
 <template>
     <div class="image-wrapper">
-        <div v-if="isLoading" class="h100 image-loader">
+        <div v-if="isLoading" class="w100 h100 image-loader img-load">
             <IconComponent type="image" className="center font30 clrGray"></IconComponent>
         </div>
         <img
+            v-show="!isLoading"
             class="w100 h100"
             :src="file.buffer || file.url" 
             :alt="file.name"
-            @load="isLoading = false"
+            @load="isLoading = true"
         />
         <div 
             v-if="uploadProgress && uploadProgress < 100"
@@ -41,7 +42,7 @@ export default {
     
     data() {
         return {
-            isLoading: !this.file.buffer
+            isLoading: true
         }
     },
 }
@@ -49,13 +50,20 @@ export default {
 
 <style lang="less" scoped>
 .image-wrapper {
-    width: 350px;
+    width: 100%;
+    max-width: 350px;
+    min-width : 250px;
     height : 200px;
     border-radius: .7em;
     overflow: hidden;
 }
 img {
     object-fit: cover;
+}
+
+/deep/ .img-load {
+    transition: all;
+    animation: drop-in infinite;
 }
 .image-loader {
     background-color: inherit;

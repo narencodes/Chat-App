@@ -16,17 +16,47 @@ if (!isdev) {
 }
 
 module.exports = {
-    outputDir : '../server/public',
-	lintOnSave : false,
-    devServer : {
-        proxy : {
-            '/api' : {
-                target : 'http://localhost:5000/'
-            }
-        }
+	outputDir: '../server/public',
+	lintOnSave: false,
+	devServer: {
+		proxy: {
+			'/api': {
+				target: 'http://localhost:5000/'
+			}
+		}
 	},
+	
+	pwa: {
+		manifestOptions : {
+		    "name": "Chit Chat",
+		    "short_name": "chat",
+		    "description": "App to communicate with friends",
+		    "icons": [
+			 {
+			   "src": "./img/logo.2cc25085.png",
+			   "sizes": "32x32",
+			   "type": "image/png"
+			 },
+			 {
+			   "src": "./img/logo.2cc25085.png",
+			   "sizes": "512x512",
+			   "type": "image/png" 
+			 },
+			 {
+			   "src": "./img/logo.2cc25085.png",
+			   "sizes": "192x192",
+			   "type": "image/png" 
+			 }
+		    ],
+		    "start_url": "/",
+		    "display": "fullscreen",
+		    "theme_color": "#B12A34",
+		    "background_color": "#B12A34",
+		    "prefer_related_applications" : false
+		  }
+	 },
 
-	chainWebpack : config => {
+	chainWebpack: config => {
 		config.optimization.delete('splitChunks');
 		config.optimization.set('splitChunks', {
 			cacheGroups: {
@@ -38,7 +68,7 @@ module.exports = {
 					priority: 20,
 					chunks: 'initial'
 				},
-				core : {
+				core: {
 					test: /[\\/]node_modules[\\/](@core.*|core.*|@babel.*)[\\/]/,
 					name: 'transpilers',
 					enforce: true,
@@ -62,7 +92,7 @@ module.exports = {
 					name: 'components',
 					enforce: true,
 					priority: 20,
-					reuseExistingChunk : true,
+					reuseExistingChunk: true,
 					chunks: 'all'
 				},
 				// Chat Components
@@ -74,7 +104,7 @@ module.exports = {
 					reuseExistingChunk: true,
 					chunks: 'all'
 				},
-				socket : {
+				socket: {
 					test: /[\\/]node_modules[\\/](socket|engine).*[\\/]/,
 					name: 'socket-io',
 					enforce: true,
@@ -108,10 +138,10 @@ module.exports = {
 				// 	reuseExistingChunk: true
 				// }
 			}
-		})
+		});
 	},
 
-    configureWebpack: {
+	configureWebpack: {
 		optimization: {
 			minimizer: [new TerserPlugin({
 				terserOptions: {
@@ -120,7 +150,7 @@ module.exports = {
 					}
 				}
 			})],
-			removeEmptyChunks : true
+			removeEmptyChunks: true
 			// splitChunks : isdev ? {} : {
 			// 	cacheGroups : {
 			// 		default : {
@@ -144,4 +174,4 @@ module.exports = {
 			rules
 		}
 	}
-}
+};

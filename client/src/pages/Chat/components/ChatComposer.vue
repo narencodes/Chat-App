@@ -16,13 +16,12 @@
 		>
 			<textarea 
 				ref="composer"
-				v-model="composerValue"
+				:value="composerValue"
 				@input="handleComposerInput"
 				placeholder="Type a message"
 				@focus="isFocussed = true"
 				@blur="isFocussed = false"
-				@keydown.enter.prevent="sendMessage"
-				@paste="handleComposerInput"
+				@keydown="handleKeyDown"
 			>
 			</textarea>
 		</div>
@@ -76,7 +75,8 @@ export default {
 			this.composerHeight = this.$refs.composer.scrollHeight;
 		},
 
-		handleComposerInput() {
+		handleComposerInput({ target }) {
+			this.composerValue = target.value;
 			this.handleComposerHeight();
 			this.handleTyping();
 		},
@@ -118,9 +118,16 @@ export default {
 		sendTypingStatus(chatId, is_typing) {
 			this.$store.dispatch('chatstore/sendTyping', { chatId, is_typing });
 		},
+		
+		handleKeyDown(event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				this.sendMessage();
+			}
+		},
 
 		sendMessage() {
-			if (!this.composerValue) {
+			if (!this.composerValue.trim()) {
 				return;
 			}
 			this.isUserTyping = false;

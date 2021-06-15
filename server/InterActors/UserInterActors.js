@@ -33,15 +33,26 @@ const getUser = (query, requirement = {}) => {
 		})
 }
 
-let checkIfUserExists = async ({ user_name, email_id }) => {
+let checkIfUserExists = async ({ query : { user_name, email_id } }) => {
 	let query = user_name ? 'user_name' : 'email_id';
 	let value = user_name || email_id;
 	query = [{
 		[query]: value // Reg expression to match both lower and uppercases
-	}]
-	let user = await getUser(query);
-	return !!user;
+	}];
+	try {
+		let user = await getUser(query);
+		return {
+			data : {
+				user_found : !!user
+			}
+		}
+	}
+	catch(err) {
+		return Promise.reject(err);
+	}
 }
+
+
 
 const getUserByKeys = (query = [], requirement = {}) => {
 	return UserDB.findByKeys(query, requirement)
@@ -53,9 +64,24 @@ const getUserByKeys = (query = [], requirement = {}) => {
 			})
 }
 
-let getProfile = (user_id, requirements) => {
+let getCurrentUserProfile = req => {
+	return getProfile(req.userId)
+			.then(data => {
+				if (!data) {
+					return {
+						status : 400,
+						data : "user not found"
+					}
+				}
+				return {
+					data
+				}
+			})
+}
+
+let getProfile = (userId, requirements) => {
 	let query = [{
-		_id: user_id
+		_id: userId
 	}]
 	// We don't need password and friends from the database
 	requirements = requirements || {
@@ -80,13 +106,15 @@ let getUserData = req => {
 					return;
 				}
 				return {
-					user_name : data.user_name,
-					is_friend : data.friends.includes(currentUserId)
+					data : {
+						user_name : data.user_name,
+						is_friend : data.friends.includes(currentUserId)
+					}
 				};
 			})
 			.catch(err => {
 				console.log(err);
-				return Promise.reject();
+				return Promise.reject(err);
 			})
 }
 
@@ -146,12 +174,11 @@ const getUserByIds = (ids = [], requirements) => {
  * @returns Friends basic details
  */
 
-const getFriendsDetails = user_id => {
-	return new Promise((resolve, reject) => {
-		getFriends(user_id)
+const getFriendsDetails = ({ userId : user_id }) => {
+	return getFriends(user_id)
 			.then(friends => {
 				if (!friends.length) {
-					return resolve(friends);
+					return Promise.resolve(friends);
 				}
 				let requirement = {
 					_id: 1,
@@ -160,13 +187,13 @@ const getFriendsDetails = user_id => {
 					status: 1,
 					last_online: 1
 				}
-				getUserByIds(friends, requirement)
-					.then(data => {
-						resolve(data);
-					})
+				return getUserByIds(friends, requirement)
 			})
-			.catch(reject)
-	})
+			.then(data => ({ data }))
+			.catch(err => {
+				console.log(err);
+				return Promise.reject();
+			})
 }
 
 const updateStatus = (user_id, status, last_online) => {
@@ -183,6 +210,28 @@ const updateStatus = (user_id, status, last_online) => {
 		});
 }
 
+const deleteCurrentUser = req => {
+	return deleteUserById(req.userId)
+			.then(() => {
+				return {
+					status : 200,
+					data : {
+						code: "300",
+						message: 'User Deleted'
+					}
+				}
+			})
+			.catch(() => {
+				return {
+					status : 400,
+					error : {
+						code: "304",
+						message: 'Unable to delete user'
+					}
+				}
+			})
+}
+
 const deleteUserById = user_id => {
 	let query = [ { _id : user_id } ]
 	return UserDB.deleteOne(query)
@@ -194,7 +243,7 @@ const deleteUserById = user_id => {
 module.exports = Object.freeze({
 	saveUser,
 	getUser,
-	getProfile,
+	getCurrentUserProfile,
 	checkIfUserExists,
 	getFriends,
 	getUserData,
@@ -202,5 +251,5 @@ module.exports = Object.freeze({
 	getUserByKeys,
 	fetchUsers,
 	updateStatus,
-	deleteUserById
+	deleteCurrentUser
 })

@@ -110,6 +110,9 @@ export default {
 	padding: 5px;	
 	border-radius: .7em;
 	background-color: #cfcfcf;
+	@media(max-width: 600px) {
+		max-width: 85%;
+	}
 }
 
 .msg-info {

@@ -61,7 +61,7 @@ export default {
 					if(formattedObj.type) {
 						formattedObj.list[formattedObj.list.length - 1].isLast = true;
 						transcriptList.unshift(formattedObj)
-					};
+					}
 					formattedObj = {};
 					formattedObj.type = type;
 					formattedObj.isSender = isSender;
@@ -74,7 +74,7 @@ export default {
 			if(formattedObj.type) {
 				formattedObj.list[formattedObj.list.length - 1].isLast = true;
 				transcriptList.unshift(formattedObj)
-			};
+			}
 			transcriptList[transcriptList.length - 1].isLast = true;
 			return transcriptList;
 		}
@@ -205,7 +205,9 @@ export default {
 .sender-cont {
 	.flexV;
 	.mB10;
-	.mR30;
+	@media(min-width: 700px) {
+		.mR30;
+	}
 }
 
 /deep/ .sender-cont .msg-holder {

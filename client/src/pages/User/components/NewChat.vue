@@ -69,7 +69,7 @@ export default {
 			if (id === this.currentUser._id || !checkIfObjectId(id)) { // To check if the id is user id or if the id is not a valid ObjectId
 				this.showIdError = true;
 				return;
-			};
+			}
 			btnContainer.isLoading = true;
 			this.$store.dispatch('chatstore/createNewChat', id)
 				.then(chat => {

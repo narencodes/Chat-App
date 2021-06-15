@@ -101,13 +101,9 @@ const fetchPaginatedChat = req => {
 			.then(({ data, hasMore = false }) => {
 				let chats = data.map(chat => getFormattedChatObject(chat, userId));
 				return {
-					status : '200',
 					data : {
-						list: 'chats',
-						data : {
-							chats,
-							hasMore
-						}
+						chats,
+						hasMore
 					}
 				}
 			})
@@ -127,15 +123,11 @@ let fetchUniqueChat = req => {
 			.then(chat => {
 				chat = getFormattedChatObject(chat, userId);
 				return {
-					status : 200,
-					data : {
-						data : chat
-					}
+					data : chat
 				}
 			})
 			.catch(err => {
-				console.log(err);
-				return Promise.reject();
+				return Promise.reject(err);
 			})
 }
 
@@ -146,9 +138,12 @@ let fetchUniqueChat = req => {
 let createNewChat = req => { 
 	let { userId, body : { receiver_id } } = req;
 	if (!receiver_id) {
-		return Promise.reject({
-			message : 'User id missing'
-		})
+		return {
+			status : 400,
+			error : {
+				message : 'User id missing'
+			}
+		}
 	}
 	let query = [{
 		_id: receiver_id
@@ -156,10 +151,13 @@ let createNewChat = req => {
 	return getUser(query)
 			.then(user => {
 				if (!user) {
-					return Promise.reject({
-						code: "1",
-						message: 'User not found'
-					})
+					return {
+						status : 400,
+						error : {
+							code: "1",
+							message: 'User not found'
+						}
+					}
 				}
 				return createChat(userId, receiver_id);
 			})
@@ -212,10 +210,8 @@ let handleUserChat = async (users, currentUserId, receiverId) => {
 				return {
 					status : 200,
 					data : {
-						data : {
-							created : true,
-							chat_details : chat
-						}
+						created : true,
+						chat_details : chat
 					}
 				};
 			})
@@ -396,7 +392,11 @@ let fetchFile = req => {
 						code : 'f400',
 						message : 'file not found'
 					},
-					type : data.length ? data[0].type : 'application/json'
+					isBuffer : true,
+					headers : {
+						"Content-Type" : data.length ? data[0].type : 'application/json',
+						"Cache-Control" : `max-age=${1000 * 60 * 60 * 24 * 60}`
+					}
 				}
 			})
 			.catch(err => {

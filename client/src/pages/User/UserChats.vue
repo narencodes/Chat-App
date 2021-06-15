@@ -1,5 +1,5 @@
 <template>
-	<div class='mT20 w100 h100 pB20'>
+	<div class='w100 h100' :class="{ 'mT20 pB20' : !isMobile }">
 		<NoChats 
 			v-if="!totalChats"
 			@start-chat="handleStartChat"
@@ -28,6 +28,7 @@ import ButtonComponent from "@/components/Button/ButtonComponent";
 import LoadingComponent from '@/components/Loading/LoadingComponent';
 import Chats from '@/pages/Chat/Chats';
 import NewChat from "./components/NewChat";
+import { isMobileDevice } from "@/utility/utils";
 
 export default {
 	name : 'UserChats',
@@ -46,7 +47,8 @@ export default {
 	data() {
 		return {
 			showNewChat : false,
-			joinUserData : undefined
+			joinUserData : undefined,
+			isMobile : isMobileDevice
 		}
 	},
 
@@ -71,8 +73,8 @@ export default {
 		
 		fetchUserData() {
 			if(this.userId === this.currentUser._id) {
-				this.goToChats();
-				return this.$errorBanner('Invalid Join link');
+				this.$errorBanner('Invalid Join link')
+				return this.goToChats();
 			}
 			this.$store.dispatch('userstore/getUserData', this.userId)
 				.then(this.handleJoinChat);
@@ -138,17 +140,10 @@ export default {
 		NoChats : {
 			name : 'NoChats',
 			template : `<div class="no-chat">
-							<img
-								:src="noChatImg | imgURL" 
-							/>
-							<p class="text">
-								No chats found
-							</p>
-							<button-component
-								v-bind="chatBtnProps"
-							>
-							</button-component>
-						</div>`,
+						<img :src="noChatImg | imgURL" />
+						<p class="text">No chats found</p>
+						<button-component v-bind="chatBtnProps"></button-component>
+					  </div>`,
 			data() {
 				return {
 					noChatImg : CHAT_ICON,

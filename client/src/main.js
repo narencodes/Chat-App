@@ -31,8 +31,7 @@ setAxiosAuthorization();
 import "./configs/configThirdParty";
 
 //For Service Worker
-import { init } from "./service/serviceworker";
-init();
+import './registerServiceWorker';
 
 
 
