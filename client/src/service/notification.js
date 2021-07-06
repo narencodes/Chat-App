@@ -20,14 +20,15 @@ class Notify{
 	}
 
 	init() {
-		playSound();
+		if (document.hasFocus()) {
+			playSound('message');
+			return;
+		}
 		isAllowed() ? this.show() : requestPermission();
 	}
 
 	show() {
-		if (document.hasFocus()) {
-			return;
-		}
+		playSound('notification');
 		let { title, body } = this.params;
 		this.notification = new Notification(title, { 
 			body,
