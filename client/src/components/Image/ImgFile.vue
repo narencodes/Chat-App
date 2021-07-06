@@ -8,7 +8,7 @@
             class="w100 h100"
             :src="file.buffer || file.url" 
             :alt="file.name"
-            @load="isLoading = true"
+            @load="isLoading = false"
         />
         <div 
             v-if="uploadProgress && uploadProgress < 100"
