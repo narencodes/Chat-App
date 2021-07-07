@@ -81,7 +81,7 @@ export let transcriptMixin = {
 		},
 		
 		isSender() {
-			return this.message.sender_id === this.currentUser._id;
+			return this.message.sender_id === this.currentUser.id;
 		},
 		
 		type() {

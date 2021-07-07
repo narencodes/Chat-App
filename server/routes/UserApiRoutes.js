@@ -13,12 +13,17 @@ module.exports = {
 	beforeEnter : userApiBeforeEnter,
 	children : [
 		{
+			path : "",
+			method : 'delete',
+			handler : deleteCurrentUser
+		},
+		{
 			path : "check",
 			method : "get",
 			handler : checkIfUserExists
 		},
 		{
-			path : 'profile',
+			path : '',
 			method : "get",
 			handler : getCurrentUserProfile
 		},
@@ -26,11 +31,6 @@ module.exports = {
 			path : "friends",
 			method : "get",
 			handler : getFriendsDetails
-		},
-		{
-			path : "delete",
-			method : 'delete',
-			handler : deleteCurrentUser
 		},
 		{
 			path : ":userId",

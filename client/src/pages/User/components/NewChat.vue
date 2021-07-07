@@ -45,7 +45,7 @@ export default {
 		...mapState('userstore', ['currentUser']),
 		
 		joinLink() {
-			return `${ORIGIN}/user/${this.currentUser._id}/join`;
+			return `${ORIGIN}/user/${this.currentUser.id}/join`;
 		}
 	},
 
@@ -66,7 +66,7 @@ export default {
 		},
 
 		handleChatJoin(id, btnContainer) {
-			if (id === this.currentUser._id || !checkIfObjectId(id)) { // To check if the id is user id or if the id is not a valid ObjectId
+			if (id === this.currentUser.id || !checkIfObjectId(id)) { // To check if the id is user id or if the id is not a valid ObjectId
 				this.showIdError = true;
 				return;
 			}

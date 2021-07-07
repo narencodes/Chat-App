@@ -93,16 +93,7 @@ let handleNewGoogleUser = ({ user_name, img_url, account_type, email_id }) => {
 		});
 }
 
-let login = userData => getToken(userData);
-
-let getToken = ({ _id, user_name, email_id }) => {
-	let payload = {
-		_id,
-		user_name,
-		email_id
-	}
-	return genAuthToken(payload);
-}
+let login = userData => genAuthToken(userData);
 
 module.exports = {
 	loginUser

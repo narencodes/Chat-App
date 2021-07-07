@@ -1,9 +1,14 @@
 const jwt = require('jsonwebtoken'); // Web tokens for authentication
 const { JWT_SECRET_KEY } = require('../utils/keys');
 
-let genAuthToken = payload => {
+let genAuthToken = ({ id, name, email_id }) => {
+	const payload = {
+		id,
+		name,
+		email_id
+	}
 	let token = jwt.sign({ user : payload }, JWT_SECRET_KEY);
-	return `ChatApp ${token}`
+	return `ChatApp ${token}`;
 }
 
 let verifyToken = token => {

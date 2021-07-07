@@ -9,7 +9,7 @@ import { showNotification } from "@/service/notification";
 let notifyUser = (msg, id) => {
 	// Dont show the notication if the sender is current user
 	let { sender_id, text, file } = msg;
-	if (sender_id === getCurrentUser()._id) {
+	if (sender_id === getCurrentUser().id) {
 		return;
 	}
 	let { img_url, user_name } = getFriendDetail(sender_id);
@@ -100,8 +100,8 @@ let mutations = {
 	},
 
 	sendAcceptance({ selectedChatId }, { chat_id, message }) {
-		let { _id } = getCurrentUser();
-		if (_id !== message.receiver_id) {
+		let { id } = getCurrentUser();
+		if ( id !== message.receiver_id) {
 			return;
 		}
 		let isChatOpen = chat_id === selectedChatId;
@@ -160,8 +160,8 @@ let mutations = {
 		}
 		chat.last_message = message; // set last message to chat detail
 		message._id && chat.total_messages++;
-		let { _id } = getCurrentUser();
-		if (_id === message.receiver_id) {
+		let { id } = getCurrentUser();
+		if (id === message.receiver_id) {
 			chatExists && chat.unread_count++;
 			chat.isTyping = false;
 		}
@@ -262,8 +262,8 @@ let getters = {
 		if (!chat) {
 			return '';
 		}
-		let { _id } = getCurrentUser();
-		let { _id : receiverId } = chat.participants.find(par => par._id !== _id);
+		let { id } = getCurrentUser();
+		let { _id : receiverId } = chat.participants.find(par => par._id !== id);
 		return getFriendDetail(receiverId);
 	},
 

@@ -13,10 +13,10 @@ let errorHandler = code => {
 let apiURL = '/api/user';
 let UserAction = {
 	getCurrentUserDetails({ commit }) {
-		return axios.get(`${apiURL}/profile`)
+		return axios.get(apiURL)
 				.then(data => {
 					commit('setUserDetail', data);
-					return data._id; // returing user id
+					return data.id; // returing user id
 				})
 				.catch(({ code }) => {
 					return Promise.reject(code);
@@ -31,7 +31,7 @@ let UserAction = {
 	},
 	
 	deleteUser() {
-		return axios.post('/api/user/delete')
+		return axios.delete(apiURL)
 				.catch(({ code }) => {
 					errorHandler(code);
 					return Promise.reject(code);

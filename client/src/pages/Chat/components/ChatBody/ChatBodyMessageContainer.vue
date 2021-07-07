@@ -55,7 +55,7 @@ export default {
 			} 
 			this.transcriptOrder.forEach(msgId => {
 				let msg = Object.assign({}, this.transcript[msgId]);
-				let isSender = msg.sender_id === this.currentUser._id;
+				let isSender = msg.sender_id === this.currentUser.id;
 				let type = isSender ? 'sender' : 'receiver';
 				if (formattedObj.type !== type) {
 					if(formattedObj.type) {

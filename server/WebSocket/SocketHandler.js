@@ -10,6 +10,9 @@ let init = server => {
 
 let handleNewSocketConnection = socket => {
 	let { user_id } = socket.handshake.query;
+	if (!user_id) {
+		return;
+	}
 	socket.join(user_id);
 	statusHandler(user_id, 'online');
 	console.log(`${user_id} connected`);

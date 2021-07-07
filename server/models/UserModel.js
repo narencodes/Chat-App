@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { getSchema, getModel } = require("./modelUtil.js");
 
-let UserSchema = new mongoose.Schema({
+let UserSchema = getSchema({
 	user_name : {
 		type : String,
 		required : true,
@@ -52,6 +53,6 @@ let UserSchema = new mongoose.Schema({
 	}
 }, { minimize : false });
 
-const UserModel = mongoose.model('users', UserSchema);
+const UserModel = getModel('users', UserSchema);
 
 module.exports = UserModel;

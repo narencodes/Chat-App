@@ -6,7 +6,7 @@
 			class="dialog-popup"
 			v-exit="closePopup"
 		>
-			<IconComponent type="close"></IconComponent>
+			<IconComponent type="close" :onClick="closePopup"></IconComponent>
 			<div>
 				<IconComponent :type="iconType" className="icon"></IconComponent>
 				<div class="title">

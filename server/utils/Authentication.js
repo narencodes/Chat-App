@@ -2,8 +2,8 @@ const { verifyToken } = require("../Dependencies/AuthToken");
 
 let getAuthCookie = req => {
 	let cookies = req.headers.cookie || '';
-	let auth_cookies = cookies.match(/auth_token=(.*);/);
-	return auth_cookies && auth_cookies[1].replace('%20', " ");
+	let auth_cookies = cookies.match(/auth_token=(.*);?/);
+	return auth_cookies && auth_cookies[1].replace('%20', " ").replace(";", "");
 }
 
 let handleInvalidToken = () => {
@@ -30,10 +30,10 @@ let authenticateToken = req => {
 	// To verify whether the token is correct
 	return verifyToken(token)
 			.then(user => {
-				if (!user._id) {
+				if (!user.id) {
 					return handleInvalidToken();
 				}
-				req.userId = user._id;
+				req.userId = user.id;
 			})
 			.catch(err => {
 				console.log(err);

@@ -1,6 +1,7 @@
 /* This file contains common functions related to user */
 
 const UserDB = require('../DB/UserDB');
+const { genAuthToken } = require('../Dependencies/AuthToken');
 
 /**
  * 
@@ -74,7 +75,10 @@ let getCurrentUserProfile = req => {
 					}
 				}
 				return {
-					data
+					data,
+					cookies : {
+						auth_token : genAuthToken(data)
+					}
 				}
 			})
 }
@@ -103,7 +107,10 @@ let getUserData = req => {
 	return getProfile(userId, requirements)
 			.then(data => {
 				if (!data) {
-					return;
+					return {
+						status : 400,
+						data : "user not found"
+					}
 				}
 				return {
 					data : {

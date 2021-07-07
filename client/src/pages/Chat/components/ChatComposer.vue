@@ -162,7 +162,7 @@ export default {
 
 		getMessageMeta() {
 			return {
-				sender_id : this.currentUser._id,
+				sender_id : this.currentUser.id,
 				receiver_id : this.receiver._id,
 				time : Date.now(),
 				isSending : true

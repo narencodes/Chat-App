@@ -35,7 +35,7 @@
 					</div>
 					<template>
 						<div 
-							v-if="currentUser._id === lastMessage.sender_id"
+							v-if="currentUser.id === lastMessage.sender_id"
 							class="read-marker"
 							:class="{ 'read' : lastMessage.is_read }"
 						>

@@ -72,7 +72,7 @@ export default {
 		},
 		
 		fetchUserData() {
-			if(this.userId === this.currentUser._id) {
+			if(this.userId === this.currentUser.id) {
 				this.$errorBanner('Invalid Join link')
 				return this.goToChats();
 			}
