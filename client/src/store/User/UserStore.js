@@ -26,13 +26,13 @@ let mutations = {
 		state.isFriendsLoaded = true;
 	},
 
-	setFriendStatus({ friends }, { _id, status, last_online }) {
-		if (friends[_id]) {
-			friends[_id].last_online = last_online
-			friends[_id].status = status;
+	setFriendStatus({ friends }, { id, status, last_online }) {
+		if (friends[id]) {
+			friends[id].last_online = last_online
+			friends[id].status = status;
 			return;
 		}
-		Vue.set(friends, _id, { status, last_online });
+		Vue.set(friends, id, { status, last_online });
 	},
 
 	resetUserStore(state) {

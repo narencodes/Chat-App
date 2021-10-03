@@ -1,6 +1,10 @@
 node_modules
 package-lock.json
 /server/public
-migration-data
+migrations
 .env
 .vscode
+.DS_Store
+stories
+.storybook
+react-client

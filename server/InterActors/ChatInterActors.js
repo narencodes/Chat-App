@@ -315,7 +315,7 @@ let changeChatMeta = ({ isGlobal = false, chatId, userId, is_delivered = false, 
 	// To update the message only if the receiver_id is currentUserId and the message is not marked read already
 	let filters = {
 		"elem.is_read": false,
-		"elem.receiver_id": getObjectId(userId)
+		"elem.sender_id": { $ne : getObjectId(userId) }
 	}
 	msg_id && (filters['elem._id'] = getObjectId(msg_id));
 	let arrayFilters = [ filters ];
@@ -365,12 +365,10 @@ let uploadFile = req => {
 					size,
 					type
 				};
-				let { sender, receiver } = getSenderAndReceiver(participants, userId);
 				let message = createNewMessage({
 					file,
 					type : 'file',
-					sender_id : sender._id,
-					receiver_id : receiver._id
+					sender_id : userId,
 				})
 				return pushNewMessage(chatId, participants, message, temp_id);
 			})

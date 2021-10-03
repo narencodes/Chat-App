@@ -10,11 +10,6 @@ let messageSchema = new mongoose.Schema({
 		ref: 'User',
 		required : true
 	},
-	receiver_id: {
-		type: mongoose.Types.ObjectId,
-		ref: 'User',
-		required: true
-	},
 	is_delivered: {
 		type: Boolean,
 		default: false

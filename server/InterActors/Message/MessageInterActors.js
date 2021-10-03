@@ -51,15 +51,15 @@ let postMessage = req => {
 			}
 		})
 	}
-	let { sender, receiver } = getSenderAndReceiver(participants, userId);
-	let message = createNewMessage({ text, sender_id : sender._id, receiver_id : receiver._id });
+	let message = createNewMessage({ text, sender_id : userId });
 	return pushNewMessage(chatId, participants, message, temp_id);
 }
 
 let pushNewMessage = (chatId, participants, message, temp_id) => {
+	let { receiver } = getSenderAndReceiver(participants, message.sender_id);
 	let findQuery = {
 		_id: chatId,
-		"participants._id" : message.receiver_id
+		"participants._id" : receiver._id
 	};
 	let updateQuery = {
 		$set: {
@@ -77,7 +77,15 @@ let pushNewMessage = (chatId, participants, message, temp_id) => {
 		}
 	}
 	return ChatDB.findAndUpdate(findQuery, updateQuery)
-				.then(() => {
+				.then((data) => {
+					if (!data) {
+						return {
+							status : 400,
+							error : {
+								message : "unable to send message"
+							}
+						}
+					}
 					let messageObj = {
 						chat_id : chatId,
 						temp_id,

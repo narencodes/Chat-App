@@ -33,7 +33,7 @@ let statusHandler = (user_id, status) => {
 			let param = {
 				$mode: 'status',
 				data: {
-					_id: user_id,
+					id: user_id,
 					status,
 					last_online
 				}

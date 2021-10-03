@@ -1,9 +1,9 @@
-const INVALID_TOKEN = "400";
-const INCORRECT_PASSWORD = "2";
-const USER_NOT_FOUND = "1";
-const USER_DELETED = "555";
+export const INVALID_TOKEN = "400";
+export const INCORRECT_PASSWORD = "2";
+export const USER_NOT_FOUND = "1";
+export const USER_DELETED = "555";
 
-const errorTexts = {
+export const errorTexts = {
 	'500' : 'User Exists, Please Login with Google',
 	'501' : 'User Exists, please login with password',
 	'0' : 'Unable to Register, Try again later.',
@@ -13,12 +13,4 @@ const errorTexts = {
 	'u404' : "User doesn't exist in Chitchat",
 	'505' : 'Already Connected with the user',
 	'510' : 'Unable to create Chat'
-}
-
-module.exports = {
-	INCORRECT_PASSWORD,
-	INVALID_TOKEN,
-	USER_NOT_FOUND,
-	errorTexts,
-	USER_DELETED
 }

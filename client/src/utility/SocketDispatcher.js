@@ -20,7 +20,7 @@ let SocketDispatcher = (function () {
 	let newChatDispatcher = data => store.commit('chatstore/addChat', data);
 	
 	let statusDispatcher = data => {
-		data.status === 'online' && markFriendChatAsDelivered(data._id);
+		data.status === 'online' && markFriendChatAsDelivered(data.id);
 		store.commit('userstore/setFriendStatus', data);
 	};
 

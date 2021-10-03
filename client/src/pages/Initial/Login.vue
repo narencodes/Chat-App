@@ -176,8 +176,15 @@ export default {
 		LoadingComponent,
 		GoogleButton : {
 			name : 'GoogleButton',
-
-			template : `<div class='mT10 diB' id='googleButton'></div>`,
+			
+			render(h) {
+				return h('div', {
+					attrs : {
+						id : 'googleButton',
+						class : 'mT10 diB'
+					}
+				});
+			},
 
 			props : {
 				onSignIn : {

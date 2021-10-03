@@ -101,7 +101,7 @@ let mutations = {
 
 	sendAcceptance({ selectedChatId }, { chat_id, message }) {
 		let { id } = getCurrentUser();
-		if ( id !== message.receiver_id) {
+		if ( id === message.sender_id) {
 			return;
 		}
 		let isChatOpen = chat_id === selectedChatId;
@@ -161,7 +161,7 @@ let mutations = {
 		chat.last_message = message; // set last message to chat detail
 		message._id && chat.total_messages++;
 		let { id } = getCurrentUser();
-		if (id === message.receiver_id) {
+		if (id !== message.sender_id) {
 			chatExists && chat.unread_count++;
 			chat.isTyping = false;
 		}
