@@ -1,5 +1,5 @@
 // File for service worker
-let cacheName = 'v2';
+let cacheName = 'v3';
 
 let dependencyURLs = [
 	"https://kit.fontawesome.com/10806da71c.js",

@@ -32,6 +32,11 @@ module.exports = {
 		    "short_name": "chat",
 		    "description": "App to communicate with friends",
 		    "icons": [
+			{
+				"src": "./img/logo.2cc25085.png",
+				"sizes": "16x16",
+				"type": "image/png"
+			},
 			 {
 			   "src": "./img/logo.2cc25085.png",
 			   "sizes": "32x32",

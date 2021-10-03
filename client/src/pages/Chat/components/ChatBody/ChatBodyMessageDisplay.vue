@@ -106,6 +106,7 @@ export default {
 	.flexV;
 	min-width: 100px;
 	width: fit-content;
+	width: -moz-fit-content;
 	max-width: 50%;
 	padding: 5px;	
 	border-radius: .7em;
