@@ -16,7 +16,7 @@ let chatRequirements = {
 	participants: 1,
 	last_active_time: 1,
 	created_time: 1,
-	total_messages: 1
+	total_messages: { $size: "$messages" }
 }
 
 let getChatById = (chatId, requirements) => {

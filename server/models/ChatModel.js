@@ -9,10 +9,6 @@ let ChatSchema = new mongoose.Schema({
 		type : Array,
 		default : () => []
 	},
-	total_messages : { // Total Message count
-		type : Number,
-		default : 0
-	},
 	last_active_time : {
 		type : Number,
 		default : Date.now()

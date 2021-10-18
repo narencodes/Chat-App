@@ -66,7 +66,6 @@ let pushNewMessage = (chatId, participants, message, temp_id) => {
 			last_active_time : message.time
 		},
 		$inc: {
-			total_messages: 1,
 			"participants.$.unread_count": 1
 		},
 		$push: {

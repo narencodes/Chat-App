@@ -5,7 +5,7 @@ export let getFormattedTime = (time = Date.now()) => {
 	return `${formatHour(hour)}:${formatDigit(minute)} ${hour >= 12 ? 'PM' : 'AM'}`;
 }
 
-export let formatDigit = digit => digit < 10 ? `0${digit}` : digit;
+export let formatDigit = digit => digit.toString().length < 2 ? `0${digit}` : digit;
 
 export let formatHour = hour => {
     return hour === 0 

@@ -175,6 +175,9 @@ module.exports = {
 			extensions: ['*', '.js', '.vue', '.json']
 		},
 		plugins,
+		watchOptions : {
+			ignored: /node_modules/,
+		},
 		module: {
 			rules
 		}

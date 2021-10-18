@@ -5,7 +5,8 @@ let genAuthToken = ({ id, name, email_id }) => {
 	const payload = {
 		id,
 		name,
-		email_id
+		email_id,
+		time : Date.now()
 	}
 	let token = jwt.sign({ user : payload }, JWT_SECRET_KEY);
 	return `ChatApp ${token}`;
