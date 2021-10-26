@@ -16,7 +16,7 @@ if (!isdev) {
 }
 
 module.exports = {
-	// outputDir: 'dist',
+	outputDir: '../server/public',
 	lintOnSave: false,
 	devServer: {
 		proxy: {
