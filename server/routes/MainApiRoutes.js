@@ -6,7 +6,7 @@ const path = require('path');
 const compression = require('compression');
 const cors = require('cors');
 const Router = require("@naren_codes/server-router");
-const { getParser } = require("./routeUtils");
+const { getParser } = require("@naren_codes/request-parser");
 
 const initializeRoutes = app => {
 	/**
