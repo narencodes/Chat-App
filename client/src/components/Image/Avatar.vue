@@ -3,8 +3,8 @@
 		<img
 			class="profile-image"
 			:class="{ 'curP' : isClickable }"
-			:src="imageURL | imgURL"
-			@error="handleImgLoadErr"
+			:src="(isError ? DUMMY_IMG : imageURL)| imgURL"
+			@error="isError = true"
 			@click="handleImgClick"
 			alt="profile-pic"
 		/>
@@ -50,7 +50,8 @@ export default {
 
 	data() {
 		return {
-			imageURL : ''
+			isError : false,
+			DUMMY_IMG
 		}
 	},
 
@@ -67,21 +68,13 @@ export default {
 				status
 			} 
 		},
-	},
-
-	beforeMount() {
-		this.setImgURL();
-	},
-
-	methods : {
-		setImgURL() {
-			this.imageURL = this.user.imgURL || this.src || DUMMY_IMG;
-		},
 		
-		handleImgLoadErr() {
-			this.imageURL = DUMMY_IMG;
-		},
-
+		imageURL() {
+			return this.user.imgURL || this.src || DUMMY_IMG;
+		}
+	},
+	
+	methods : {
 		handleImgClick(e) {
 			this.isClickable && e.stopPropagation() && this.onImgClick();
 		}

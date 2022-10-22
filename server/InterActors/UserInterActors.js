@@ -1,7 +1,10 @@
 /* This file contains common functions related to user */
 
+const { isValidObjectId } = require('mongoose');
 const UserDB = require('../DB/UserDB');
 const { genAuthToken } = require('../Dependencies/AuthToken');
+const { dispatchMessage } = require('../WebSocket/SocketHandler');
+const { uploadFiles, deleteFile, fetchFile } = require('./FileInterActors');
 
 /**
  * 
@@ -100,10 +103,21 @@ let getProfile = (userId, requirements) => {
 
 let getUserData = req => {
 	let { userId : currentUserId, params : { userId } } = req; 
+	if (!isValidObjectId(userId)) {
+		return Promise.reject({
+			status : 400,
+			error : {
+				code : "u400",
+				message : "Invalid user id"
+			}
+		});
+	}
+	
 	let requirements = {
 		friends : 1,
 		user_name : 1
 	}
+	
 	return getProfile(userId, requirements)
 			.then(data => {
 				if (!data) {
@@ -246,6 +260,77 @@ const deleteUserById = user_id => {
 			.catch(err => Promise.reject(err))
 }
 
+const updateProfilePhoto = req => {
+	let image = req.files?.image;
+	
+	if (!image || image.length > 1 || !image.size) {
+		return Promise.resolve({
+			status : 400,
+			error : {
+				code : "p400",
+				message : image?.length ? 'Must send only one image' : "No images found"
+			}
+		})
+	}
+	
+	if (!(image.type?.includes('image'))) {
+		return Promise.resolve({
+			status : 400,
+			error : {
+				code : 'f400',
+				message : 'File type must be an image'
+			}
+		});
+	}
+	
+	if ((image.size / Math.pow(1024, 2)) > 1) {
+		return Promise.resolve({
+			status : 400,
+			error : {
+				code : 's400',
+				message : 'File size must be less than 1mb'
+			}
+		});
+	}
+	
+	return uploadFiles(image)
+			.then(fileId => {
+				let currentUserId = req.userId;
+				let data = { img_url : '/api/user/pic/' + fileId };
+				return UserDB.updateOne([{ _id : currentUserId }], data)
+						.then(res => {
+							dispatchMessage(currentUserId, {
+								$mode : "profileupdate",
+								data
+							});
+							
+							return Promise.resolve({
+								status : 200,
+								data
+							});
+						})
+						.catch(err => {
+							console.log(err);
+							deleteFile(fileId);
+							return Promise.reject({
+								message : "upload failed"
+							})
+						});
+			})
+			.catch((err) => {
+				console.log(err);
+				return Promise.reject({
+					status : 400,
+					error : {
+						message : "Unable to upload profile pic"
+					}
+				})
+			})
+}
+
+const fetchProfilePhoto = req => {
+	return fetchFile(req.params.picId);
+}
 
 module.exports = Object.freeze({
 	saveUser,
@@ -258,5 +343,7 @@ module.exports = Object.freeze({
 	getUserByKeys,
 	fetchUsers,
 	updateStatus,
-	deleteCurrentUser
+	deleteCurrentUser,
+	updateProfilePhoto,
+	fetchProfilePhoto
 })

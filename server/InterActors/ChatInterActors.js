@@ -356,6 +356,7 @@ let uploadFile = req => {
 		size,
 		type
 	}
+	
 	return FileDB.insertOne(fileObj)
 			.then(data => {
 				let fileURL = genFileURL(chatId, data._id);

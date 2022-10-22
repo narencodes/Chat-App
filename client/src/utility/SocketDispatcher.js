@@ -9,8 +9,10 @@ let SocketDispatcher = (function () {
 			newmessage : messageDispatcher,
 			chatmeta : chatMetaHandler,
 			msgmeta : msgMetaHandler,
-			typing : typingHandler
+			typing : typingHandler,
+			profileupdate : data => store.commit('userstore/updateCurrentUser', data)
 		}
+		
 		let { $mode, data } = message;
 		if (messageMapping[$mode]) {
 			messageMapping[$mode](data);

@@ -21,8 +21,8 @@ export let checkIfObjectId = id => {
 }
 
 export let formatImgURL = url => {
-	if (url.includes('http') || url.includes('web')) {
+	if (url.includes('http') || url.includes('api')) {
 		return url;
 	}
-	return require(`@/assets${url}`)?.default;
+	return require(`@/assets${url}`);
 }

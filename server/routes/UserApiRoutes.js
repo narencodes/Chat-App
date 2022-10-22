@@ -1,4 +1,13 @@
-const { getFriendsDetails, deleteCurrentUser, checkIfUserExists, getCurrentUserProfile, getUserData } = require('../InterActors/UserInterActors');
+const {
+	getFriendsDetails,
+	deleteCurrentUser,
+	checkIfUserExists,
+	getCurrentUserProfile,
+	getUserData,
+	updateProfilePhoto,
+	fetchProfilePhoto
+} = require('../InterActors/UserInterActors');
+
 const { authenticateToken } = require('../utils/Authentication');
 
 const userApiBeforeEnter = req => {
@@ -31,6 +40,16 @@ module.exports = {
 			path : "friends",
 			method : "get",
 			handler : getFriendsDetails
+		},
+		{
+			path : "upload",
+			method : "post",
+			handler : updateProfilePhoto
+		},
+		{
+			path : "pic/:picId",
+			method : "get",
+			handler : fetchProfilePhoto
 		},
 		{
 			path : ":userId",

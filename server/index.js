@@ -4,7 +4,7 @@ require('./routes/MainApiRoutes')(app); // passing the app to initialize all api
 const mongoose = require('mongoose');
 const { DB_CONNECTION_URL } = require('./utils/keys');
 
-let PORT = process.env.PORT || 5000; // process.env.PORT for production and 5000 for development
+let PORT = process.env.PORT || 5001; // process.env.PORT for production and 5001 for development
 
 let server = app.listen(PORT, () => {
 	console.log(`Listening on PORT ${PORT}`)

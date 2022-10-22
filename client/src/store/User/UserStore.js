@@ -18,6 +18,10 @@ let mutations = {
 		}
 		state.isProfileLoaded = true;
 	},
+	
+	updateCurrentUser(state, data) {
+		state.currentUser = { ...state.currentUser, ...data }
+	},
 
 	setFriendsDetails(state, data) {
 		data.forEach(friend => {

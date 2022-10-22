@@ -1,10 +1,13 @@
 let messageMetaHandler;
 let handleChatMeta;
 let dispatchMessage;
-const { getFriends, updateStatus } = require('../InterActors/UserInterActors');
+let getFriends;
+let updateStatus
 Promise.resolve()
 	.then(() => {
 		let { changeChatMeta, handleMessageMeta } = require("../InterActors/ChatInterActors");
+		getFriends = require('../InterActors/UserInterActors').getFriends;
+		updateStatus = require('../InterActors/UserInterActors').updateStatus;
 		messageMetaHandler = handleMessageMeta;
 		handleChatMeta = changeChatMeta;
 		dispatchMessage = require("./SocketHandler").dispatchMessage;
