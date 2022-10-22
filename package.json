@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Chat application for learning( Vue and Node js )",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "postinstall": "NODE_ENV=development && npm run client-install && NODE_ENV=production && npm run client-build",
+    "heroku-prebuild": "NODE_ENV=development && npm run client-install && NODE_ENV=production && npm run client-build",
     "dev": "nodemon server/index.js",
     "client": "npm run dev --prefix client",
     "client-install": "npm install --prefix client",
